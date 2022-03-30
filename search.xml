@@ -28,6 +28,18 @@
       </tags>
   </entry>
   <entry>
+    <title>cnpm的安装</title>
+    <url>/2021/10/07/cnpm%E7%9A%84%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<p>这是一个小知识，由于npm的安装很慢，有时候还会出现错误，所以用其他的源进行安装，我看网上大部分用的都是淘宝的源，所以我这个也是用的他的源，我自己试过，确实好用，很多由于网络问题的东西都不报错了，能正常安装下载也快</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npmmirror.com</span><br></pre></td></tr></table></figure>
+<p>这样就能用cnpm代替npm使用了。<br>其他方法可以参考<a href="https://npmmirror.com/">淘宝 NPM 镜像 (npmmirror.com)</a></p>
+]]></content>
+      <tags>
+        <tag>小知识</tag>
+        <tag>nodejs</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2020/12/27/hello-world/</url>
     <content><![CDATA[<p>欢迎来到<a href="https://hexo.io/">Hexo</a>！这是一个很棒的文章。检查<a href="https://hexo.io/docs/">文档</a>为了获取更多的信息。如果你有很多的问题当你使用Hexo，你能找到很多答案在<a href="https://hexo.io/docs/troubleshooting.html">问题解答</a>或你能向我提问在<a href="https://github.com/hexojs/hexo/issues">GitHub</a>。</p>
@@ -46,15 +58,129 @@
       </categories>
   </entry>
   <entry>
-    <title>cnpm的安装</title>
-    <url>/2021/10/07/cnpm%E7%9A%84%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<p>这是一个小知识，由于npm的安装很慢，有时候还会出现错误，所以用其他的源进行安装，我看网上大部分用的都是淘宝的源，所以我这个也是用的他的源，我自己试过，确实好用，很多由于网络问题的东西都不报错了，能正常安装下载也快</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npmmirror.com</span><br></pre></td></tr></table></figure>
-<p>这样就能用cnpm代替npm使用了。<br>其他方法可以参考<a href="https://npmmirror.com/">淘宝 NPM 镜像 (npmmirror.com)</a></p>
+    <title>八皇后思路与解法</title>
+    <url>/2021/01/01/%E5%85%AB%E7%9A%87%E5%90%8E%E6%80%9D%E8%B7%AF%E4%B8%8E%E8%A7%A3%E6%B3%95/</url>
+    <content><![CDATA[<p>这是一个关于我自己对于八皇后问题的看法，当然结合了很多网上的思路。</p>
+<h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><p>先从这个说起吧，先分析一下问题，就是有一个$8\times8$的一个棋盘，要往其中放8个皇后棋子，使各个皇后棋子不能互相攻击到。</p>
+<p>皇后的攻击范围是他的横向、纵向和斜向，这几个方向</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">↖</th>
+<th></th>
+<th>↑</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"></td>
+<td>↖</td>
+<td>↑</td>
+<td>↗</td>
+</tr>
+<tr>
+<td style="text-align:center">←</td>
+<td>←</td>
+<td>○</td>
+<td>→</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td>↙</td>
+<td>↓</td>
+<td>↘</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>就比如这个皇后攻击范围图，所以我们要通过搜索和回溯来进行判断。</p>
+<span id="more"></span>
+<h3 id="具体做法"><a href="#具体做法" class="headerlink" title="具体做法"></a>具体做法</h3><p>用到的头文件</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>定义一个皇后的结构体</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Queen</span>&#123;</span><br><span class="line">	<span class="type">int</span> x;</span><br><span class="line">	<span class="type">int</span> y;</span><br><span class="line">&#125;q[<span class="number">16</span>];<span class="comment">//皇后结构体，存皇后位置,先声明了一个结构体数组q[16]</span></span><br></pre></td></tr></table></figure>
+<p>因为皇后能攻击到横向的所以敌人，所以每行我们只用放一个皇后就OK了，横向的问题解决了，接下来纵向和斜向的问题，我采用的是纵向循环一遍这个皇后放置的位置，判断是否能被其他皇后纵向和斜向攻击到。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(y=<span class="number">0</span>;y&lt;n;y++)&#123;<span class="comment">//循环皇后纵向位置，i为第几个皇后，i-1是皇后的横向位置，n为共有几个皇后</span></span><br><span class="line">	f=<span class="literal">true</span>;</span><br><span class="line">  	<span class="keyword">if</span>(i==<span class="number">1</span>)&#123;</span><br><span class="line">  		q[i<span class="number">-1</span>].x=i<span class="number">-1</span>;</span><br><span class="line">  		q[i<span class="number">-1</span>].y=y;</span><br><span class="line">  		<span class="built_in">HuangHou</span>(n,i+<span class="number">1</span>);</span><br><span class="line">  		<span class="keyword">continue</span>;</span><br><span class="line">  	&#125;</span><br><span class="line">  	<span class="keyword">for</span>(m=<span class="number">0</span>;m&lt;i<span class="number">-1</span>;m++)&#123;<span class="comment">//遍历已经存入的皇后位置</span></span><br><span class="line">  		<span class="keyword">if</span>(q[m].y==y)&#123;<span class="comment">//判断能否被纵向攻击</span></span><br><span class="line">  			f=<span class="literal">false</span>;</span><br><span class="line">  			<span class="keyword">break</span>;</span><br><span class="line">  		&#125;</span><br><span class="line">  		<span class="keyword">if</span>(q[m].x-q[m].y==i<span class="number">-1</span>-y||q[m].x+q[m].y==i<span class="number">-1</span>+y)&#123;<span class="comment">//判断能否被斜向攻击</span></span><br><span class="line">  			f=<span class="literal">false</span>;</span><br><span class="line">  			<span class="keyword">break</span>;</span><br><span class="line">  		&#125;</span><br><span class="line">  	&#125;</span><br><span class="line">    <span class="keyword">if</span>(f)&#123;</span><br><span class="line">		q[i<span class="number">-1</span>].x=i<span class="number">-1</span>;</span><br><span class="line">		q[i<span class="number">-1</span>].y=y;</span><br><span class="line">        <span class="comment">//存入第i个皇后位置</span></span><br><span class="line">		<span class="built_in">HuangHou</span>(n,i+<span class="number">1</span>);<span class="comment">//递归下一个皇后位置</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>$q[m].x-q[m].y==i-1-y$为右斜方向皇后攻击能否被攻击到</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">○</th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">↘</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">↘</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">↘</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>$q[m].x+q[m].y==i-1+y$为左斜方向皇后攻击能否被攻击到</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center">○</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">↙</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">↙</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">↙</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>之后不断递归直到当前将放的皇后数大于需要放置的皇后数</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(i&gt;n)&#123;</span><br><span class="line">	sum++;<span class="comment">//答案总和加一 </span></span><br><span class="line">	<span class="keyword">for</span>(m=<span class="number">0</span>;m&lt;n;m++)&#123;</span><br><span class="line">		cout&lt;&lt;<span class="string">&quot;(&quot;</span>&lt;&lt;q[m].x&lt;&lt;<span class="string">&quot;,&quot;</span>&lt;&lt;q[m].y&lt;&lt;<span class="string">&quot;)&quot;</span>;<span class="comment">//输出答案 </span></span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="详细代码"><a href="#详细代码" class="headerlink" title="详细代码"></a>详细代码</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Queen</span>&#123;</span><br><span class="line">	<span class="type">int</span> x;</span><br><span class="line">	<span class="type">int</span> y;</span><br><span class="line">&#125;q[<span class="number">16</span>];<span class="comment">//皇后结构体，存皇后位置  </span></span><br><span class="line"><span class="type">bool</span> f=<span class="literal">false</span>;<span class="comment">//指示是否弄插入皇后 </span></span><br><span class="line"><span class="type">int</span> sum=<span class="number">0</span>;<span class="comment">//答案总和 </span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">HuangHou</span><span class="params">(<span class="type">int</span> n,<span class="type">int</span> i)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> m,y;</span><br><span class="line">	f=<span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">if</span>(i&gt;n)&#123;</span><br><span class="line">		sum++;<span class="comment">//答案总和加一 </span></span><br><span class="line">		<span class="keyword">for</span>(m=<span class="number">0</span>;m&lt;n;m++)&#123;</span><br><span class="line">			cout&lt;&lt;<span class="string">&quot;(&quot;</span>&lt;&lt;q[m].x&lt;&lt;<span class="string">&quot;,&quot;</span>&lt;&lt;q[m].y&lt;&lt;<span class="string">&quot;)&quot;</span>;<span class="comment">//输出答案 </span></span><br><span class="line">		&#125;</span><br><span class="line">		cout&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(y=<span class="number">0</span>;y&lt;n;y++)&#123;<span class="comment">//循环皇后纵向位置，i为第几个皇后，i-1是皇后的横向位置</span></span><br><span class="line">		f=<span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">if</span>(i==<span class="number">1</span>)&#123;</span><br><span class="line">			q[i<span class="number">-1</span>].x=i<span class="number">-1</span>;</span><br><span class="line">			q[i<span class="number">-1</span>].y=y;</span><br><span class="line">			<span class="built_in">HuangHou</span>(n,i+<span class="number">1</span>);</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(m=<span class="number">0</span>;m&lt;i<span class="number">-1</span>;m++)&#123;<span class="comment">//遍历已经存入的皇后位置</span></span><br><span class="line">			<span class="keyword">if</span>(q[m].y==y)&#123;<span class="comment">//判断能否被纵向攻击</span></span><br><span class="line">				f=<span class="literal">false</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(q[m].x-q[m].y==i<span class="number">-1</span>-y||q[m].x+q[m].y==i<span class="number">-1</span>+y)&#123;<span class="comment">//判断能否被斜向攻击</span></span><br><span class="line">				f=<span class="literal">false</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(f)&#123;</span><br><span class="line">			q[i<span class="number">-1</span>].x=i<span class="number">-1</span>;</span><br><span class="line">			q[i<span class="number">-1</span>].y=y;</span><br><span class="line">			<span class="comment">//存入第i个皇后位置</span></span><br><span class="line">			<span class="built_in">HuangHou</span>(n,i+<span class="number">1</span>);<span class="comment">//递归下一个皇后位置</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> n;</span><br><span class="line">	cin&gt;&gt;n;<span class="comment">//输入几个皇后 </span></span><br><span class="line">	<span class="built_in">HuangHou</span>(n,<span class="number">1</span>);</span><br><span class="line">	cout&lt;&lt;sum&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>感觉自己思路很混乱不过也算写了出来，就这样过吧。</p>
 ]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>算法</category>
+      </categories>
       <tags>
-        <tag>小知识</tag>
-        <tag>nodejs</tag>
+        <tag>学习记录</tag>
+        <tag>算法</tag>
+        <tag>C++</tag>
       </tags>
   </entry>
 </search>
