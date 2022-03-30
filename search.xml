@@ -1,33 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hbuilder的vue前端环境搭建</title>
-    <url>/2021/10/07/Hbuilder%E7%9A%84vue%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<h1 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h1><p>安装好node.js，需要用到这个东西来启动vue</p>
-<h1 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h1><p>用hbuilder提供的模板直接就可以创建一个vue项目<br><img src="/2021/10/07/Hbuilder%E7%9A%84vue%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/Snipaste_2021-10-07_18-06-22.png" alt></p>
-<p><img src="/2021/10/07/Hbuilder%E7%9A%84vue%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/Snipaste_2021-10-07_18-07-00.png" alt></p>
-<h1 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h1><p>在设置运行环境中配置nodejs环境，安装你的安装位置找到你的nodejs，这里我选择的是外部终端，由于内部终端有问题不能用，我也没找到解决办法，所以就用了外部终端</p>
-<span id="more"></span>
-<p><img src="/2021/10/07/Hbuilder%E7%9A%84vue%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/Snipaste_2021-10-07_18-06-44.png" alt></p>
-<h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><p>之后先编译构建然后运行然后就能在浏览器中运行你的vue了</p>
-<p><img src="/2021/10/07/Hbuilder%E7%9A%84vue%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/Snipaste_2021-10-07_18-13-53.png" alt></p>
-<p><img src="/2021/10/07/Hbuilder%E7%9A%84vue%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/Snipaste_2021-10-07_18-14-54.png" alt></p>
-<p><img src="/2021/10/07/Hbuilder%E7%9A%84vue%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/Snipaste_2021-10-07_18-15-21.png" alt></p>
-<p>输入上方的网址进入你的vue项目界面</p>
-<p><img src="/2021/10/07/Hbuilder%E7%9A%84vue%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/Snipaste_2021-10-07_18-17-48.png" alt></p>
-<p>之后在命令行按Ctrl+C就可以结束运行，也可以直接关掉。</p>
-]]></content>
-      <categories>
-        <category>计算机</category>
-        <category>Web</category>
-      </categories>
-      <tags>
-        <tag>学习记录</tag>
-        <tag>前端</tag>
-        <tag>Web</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>cnpm的安装</title>
     <url>/2021/10/07/cnpm%E7%9A%84%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<p>这是一个小知识，由于npm的安装很慢，有时候还会出现错误，所以用其他的源进行安装，我看网上大部分用的都是淘宝的源，所以我这个也是用的他的源，我自己试过，确实好用，很多由于网络问题的东西都不报错了，能正常安装下载也快</p>
@@ -38,24 +11,6 @@
         <tag>小知识</tag>
         <tag>nodejs</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/12/27/hello-world/</url>
-    <content><![CDATA[<p>欢迎来到<a href="https://hexo.io/">Hexo</a>！这是一个很棒的文章。检查<a href="https://hexo.io/docs/">文档</a>为了获取更多的信息。如果你有很多的问题当你使用Hexo，你能找到很多答案在<a href="https://hexo.io/docs/troubleshooting.html">问题解答</a>或你能向我提问在<a href="https://github.com/hexojs/hexo/issues">GitHub</a>。</p>
-<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="创建一个新页面"><a href="#创建一个新页面" class="headerlink" title="创建一个新页面"></a>创建一个新页面</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>更多信息： <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="运行服务"><a href="#运行服务" class="headerlink" title="运行服务"></a>运行服务</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>更多信息： <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>更多信息： <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="部署到站点"><a href="#部署到站点" class="headerlink" title="部署到站点"></a>部署到站点</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>更多信息： <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-      <categories>
-        <category>Web</category>
-        <category>Hexo</category>
-      </categories>
   </entry>
   <entry>
     <title>八皇后思路与解法</title>
@@ -181,6 +136,51 @@
         <tag>学习记录</tag>
         <tag>算法</tag>
         <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/12/27/hello-world/</url>
+    <content><![CDATA[<p>欢迎来到<a href="https://hexo.io/">Hexo</a>！这是一个很棒的文章。检查<a href="https://hexo.io/docs/">文档</a>为了获取更多的信息。如果你有很多的问题当你使用Hexo，你能找到很多答案在<a href="https://hexo.io/docs/troubleshooting.html">问题解答</a>或你能向我提问在<a href="https://github.com/hexojs/hexo/issues">GitHub</a>。</p>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="创建一个新页面"><a href="#创建一个新页面" class="headerlink" title="创建一个新页面"></a>创建一个新页面</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>更多信息： <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="运行服务"><a href="#运行服务" class="headerlink" title="运行服务"></a>运行服务</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>更多信息： <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>更多信息： <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="部署到站点"><a href="#部署到站点" class="headerlink" title="部署到站点"></a>部署到站点</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>更多信息： <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>Web</category>
+        <category>Hexo</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Hbuilder的vue前端环境搭建</title>
+    <url>/2021/10/07/Hbuilder%E7%9A%84vue%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h1 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h1><p>安装好node.js，需要用到这个东西来启动vue</p>
+<h1 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h1><p>用hbuilder提供的模板直接就可以创建一个vue项目<br><img src="/2021/10/07/Hbuilder%E7%9A%84vue%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/Snipaste_2021-10-07_18-06-22.png" alt></p>
+<p><img src="/2021/10/07/Hbuilder%E7%9A%84vue%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/Snipaste_2021-10-07_18-07-00.png" alt></p>
+<h1 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h1><p>在设置运行环境中配置nodejs环境，安装你的安装位置找到你的nodejs，这里我选择的是外部终端，由于内部终端有问题不能用，我也没找到解决办法，所以就用了外部终端</p>
+<span id="more"></span>
+<p><img src="/2021/10/07/Hbuilder%E7%9A%84vue%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/Snipaste_2021-10-07_18-06-44.png" alt></p>
+<h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><p>之后先编译构建然后运行然后就能在浏览器中运行你的vue了</p>
+<p><img src="/2021/10/07/Hbuilder%E7%9A%84vue%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/Snipaste_2021-10-07_18-13-53.png" alt></p>
+<p><img src="/2021/10/07/Hbuilder%E7%9A%84vue%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/Snipaste_2021-10-07_18-14-54.png" alt></p>
+<p><img src="/2021/10/07/Hbuilder%E7%9A%84vue%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/Snipaste_2021-10-07_18-15-21.png" alt></p>
+<p>输入上方的网址进入你的vue项目界面</p>
+<p><img src="/2021/10/07/Hbuilder%E7%9A%84vue%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/Snipaste_2021-10-07_18-17-48.png" alt></p>
+<p>之后在命令行按Ctrl+C就可以结束运行，也可以直接关掉。</p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>Web</category>
+      </categories>
+      <tags>
+        <tag>学习记录</tag>
+        <tag>前端</tag>
+        <tag>Web</tag>
       </tags>
   </entry>
 </search>
