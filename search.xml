@@ -1,6 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>vscode下C编译环境的配置</title>
+    <url>/2022/06/30/C%E8%AF%AD%E8%A8%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h1 id="需要"><a href="#需要" class="headerlink" title="需要"></a>需要</h1><p>一堆东西如</p>
+<ol>
+<li><p>一个vscode（哪里下载，官网下载，官网在哪，百度一下）</p>
+</li>
+<li><p>MingW64（哪里下载，<a href="https://sourceforge.net/projects/mingw-w64/files/">点击这里</a>）</p>
+<p><img src="/2022/06/30/C%E8%AF%AD%E8%A8%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/VeryCapture_20220630105828.jpg" alt="VeryCapture_20220630105828"></p>
+</li>
+</ol>
+<span id="more"></span>
+<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><p>解压你下载的MingW64编译器到你能找到的位置；然后在系统环境中配置你的MingW64</p>
+<p><img src="/2022/06/30/C%E8%AF%AD%E8%A8%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/VeryCapture_20220630110243.jpg" alt="VeryCapture_20220630110243"></p>
+<p>配置完后打开你的vscode安装几个插件<img src="/2022/06/30/C%E8%AF%AD%E8%A8%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/VeryCapture_20220630110503.jpg" alt="VeryCapture_20220630110503"></p>
+<p>这个应该就可以了，然后打开这个插件的配置，配置你的编译器位置和模式</p>
+<p><img src="/2022/06/30/C%E8%AF%AD%E8%A8%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/VeryCapture_20220630110653.jpg" alt="VeryCapture_20220630110653"></p>
+<p><img src="/2022/06/30/C%E8%AF%AD%E8%A8%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/VeryCapture_20220630110721.jpg" alt="VeryCapture_20220630110721"></p>
+<h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>之后随意打开一个文件夹写一个c语言程序<img src="/2022/06/30/C%E8%AF%AD%E8%A8%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/VeryCapture_20220630111319.jpg" alt="VeryCapture_20220630111319"></p>
+<p><img src="/2022/06/30/C%E8%AF%AD%E8%A8%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/VeryCapture_20220630111345.jpg" alt="VeryCapture_20220630111345"></p>
+<p>之后修改这几项</p>
+<p><img src="/2022/06/30/C%E8%AF%AD%E8%A8%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/VeryCapture_20220630111737.jpg" alt="VeryCapture_20220630111737"></p>
+<p>这个时候需要了解一些基本知识</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="variable">$&#123;workspaceFolder&#125;</span> :表示当前workspace文件夹路径，也即C:\Users\admin\Desktop\<span class="built_in">test</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$&#123;workspaceRootFolderName&#125;</span>:表示workspace的文件夹名，也即<span class="built_in">test</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$&#123;file&#125;</span>:文件自身的绝对路径，也即C:\Users\admin\Desktop\<span class="built_in">test</span>\.vscode\launch.json</span><br><span class="line"></span><br><span class="line"><span class="variable">$&#123;relativeFile&#125;</span>:文件在workspace中的路径，也即.vscode\launch.json</span><br><span class="line"></span><br><span class="line"><span class="variable">$&#123;fileBasenameNoExtension&#125;</span>:当前文件的文件名，不带后缀，也即launch</span><br><span class="line"></span><br><span class="line"><span class="variable">$&#123;fileBasename&#125;</span>:当前文件的文件名，launch.json</span><br><span class="line"></span><br><span class="line"><span class="variable">$&#123;fileDirname&#125;</span>:文件所在的文件夹路径，也即C:\Users\admin\Desktop\<span class="built_in">test</span>\.vscode</span><br><span class="line"></span><br><span class="line"><span class="variable">$&#123;fileExtname&#125;</span>:当前文件的后缀，也即.json</span><br><span class="line"></span><br><span class="line"><span class="variable">$&#123;lineNumber&#125;</span>:当前文件光标所在的行号</span><br><span class="line"></span><br><span class="line"><span class="variable">$&#123;env:PATH&#125;</span>:系统中的环境变量</span><br><span class="line"></span><br><span class="line"><span class="variable">$&#123;workspaceFolder&#125;</span> - the path of the folder opened <span class="keyword">in</span> VS Code</span><br><span class="line"><span class="variable">$&#123;workspaceRootFolderName&#125;</span> - the name of the folder opened <span class="keyword">in</span> VS Code without any slashes (/)</span><br><span class="line"><span class="variable">$&#123;file&#125;</span> - the current opened file</span><br><span class="line"><span class="variable">$&#123;relativeFile&#125;</span> - the current opened file relative to workspaceRoot</span><br><span class="line"><span class="variable">$&#123;fileBasename&#125;</span> - the current opened file<span class="string">&#x27;s basename</span></span><br><span class="line"><span class="string">$&#123;fileBasenameNoExtension&#125; - the current opened file&#x27;</span>s <span class="built_in">basename</span> with no file extension</span><br><span class="line"><span class="variable">$&#123;fileDirname&#125;</span> - the current opened file<span class="string">&#x27;s dirname</span></span><br><span class="line"><span class="string">$&#123;fileExtname&#125; - the current opened file&#x27;</span>s extension</span><br><span class="line"><span class="variable">$&#123;cwd&#125;</span> - the task runner<span class="string">&#x27;s current working directory on startup</span></span><br><span class="line"><span class="string">$&#123;lineNumber&#125; - the current selected line number in the active file</span></span><br></pre></td></tr></table></figure>
+<p>经过修改后的文件</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="comment">// 使用 IntelliSense 了解相关属性。 </span></span><br><span class="line">    <span class="comment">// 悬停以查看现有属性的描述。</span></span><br><span class="line">    <span class="comment">// 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.2.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;configurations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;(gdb) 启动&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cppdbg&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;request&quot;</span><span class="punctuation">:</span> <span class="string">&quot;launch&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;program&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;fileDirname&#125;\\$&#123;fileBasenameNoExtension&#125;.exe&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;stopAtEntry&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;cwd&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;workspaceFolder&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;environment&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;externalConsole&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;MIMode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;gdb&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;miDebuggerPath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;E:\\runjian\\mingw64\\bin\\gdb.exe&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;setupCommands&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;为 gdb 启用整齐打印&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;text&quot;</span><span class="punctuation">:</span> <span class="string">&quot;-enable-pretty-printing&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;ignoreFailures&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span>  <span class="string">&quot;将反汇编风格设置为 Intel&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;text&quot;</span><span class="punctuation">:</span> <span class="string">&quot;-gdb-set disassembly-flavor intel&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;ignoreFailures&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span></span><br><span class="line">                <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;preLaunchTask&quot;</span><span class="punctuation">:</span> <span class="string">&quot;C/C++: gcc.exe 生成活动文件&quot;</span>  <span class="comment">// 调试前的预执行任务，这里的值是tasks.json文件中对应的编译任务，也就是调试前需要先编译</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>这个时候直接启动就ok了</p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+      </categories>
+      <tags>
+        <tag>学习记录</tag>
+        <tag>小知识</tag>
+        <tag>vscode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cnpm的安装</title>
+    <url>/2021/10/07/cnpm%E7%9A%84%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<p>这是一个小知识，由于npm的安装很慢，有时候还会出现错误，所以用其他的源进行安装，我看网上大部分用的都是淘宝的源，所以我这个也是用的他的源，我自己试过，确实好用，很多由于网络问题的东西都不报错了，能正常安装下载也快</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npmmirror.com</span><br></pre></td></tr></table></figure>
+<p>这样就能用cnpm代替npm使用了。<br>其他方法可以参考<a href="https://npmmirror.com/">淘宝 NPM 镜像 (npmmirror.com)</a></p>
+]]></content>
+      <tags>
+        <tag>小知识</tag>
+        <tag>nodejs</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hbuilder的vue前端环境搭建</title>
     <url>/2021/10/07/Hbuilder%E7%9A%84vue%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
     <content><![CDATA[<h1 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h1><p>安装好node.js，需要用到这个东西来启动vue</p>
@@ -25,18 +74,6 @@
         <tag>学习记录</tag>
         <tag>前端</tag>
         <tag>Web</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cnpm的安装</title>
-    <url>/2021/10/07/cnpm%E7%9A%84%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<p>这是一个小知识，由于npm的安装很慢，有时候还会出现错误，所以用其他的源进行安装，我看网上大部分用的都是淘宝的源，所以我这个也是用的他的源，我自己试过，确实好用，很多由于网络问题的东西都不报错了，能正常安装下载也快</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npmmirror.com</span><br></pre></td></tr></table></figure>
-<p>这样就能用cnpm代替npm使用了。<br>其他方法可以参考<a href="https://npmmirror.com/">淘宝 NPM 镜像 (npmmirror.com)</a></p>
-]]></content>
-      <tags>
-        <tag>小知识</tag>
-        <tag>nodejs</tag>
       </tags>
   </entry>
   <entry>
