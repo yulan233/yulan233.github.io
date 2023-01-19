@@ -38,33 +38,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hbuilder的vue前端环境搭建</title>
-    <url>/posts/2a0710bf.html</url>
-    <content><![CDATA[<h1 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h1><p>安装好node.js，需要用到这个东西来启动vue</p>
-<h1 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h1><p>用hbuilder提供的模板直接就可以创建一个vue项目<br><img src="/posts/2a0710bf/Snipaste_2021-10-07_18-06-22.png" alt></p>
-<p><img src="/posts/2a0710bf/Snipaste_2021-10-07_18-07-00.png" alt></p>
-<h1 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h1><p>在设置运行环境中配置nodejs环境，安装你的安装位置找到你的nodejs，这里我选择的是外部终端，由于内部终端有问题不能用，我也没找到解决办法，所以就用了外部终端</p>
-<span id="more"></span>
-<p><img src="/posts/2a0710bf/Snipaste_2021-10-07_18-06-44.png" alt></p>
-<h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><p>之后先编译构建然后运行然后就能在浏览器中运行你的vue了</p>
-<p><img src="/posts/2a0710bf/Snipaste_2021-10-07_18-13-53.png" alt></p>
-<p><img src="/posts/2a0710bf/Snipaste_2021-10-07_18-14-54.png" alt></p>
-<p><img src="/posts/2a0710bf/Snipaste_2021-10-07_18-15-21.png" alt></p>
-<p>输入上方的网址进入你的vue项目界面</p>
-<p><img src="/posts/2a0710bf/Snipaste_2021-10-07_18-17-48.png" alt></p>
-<p>之后在命令行按Ctrl+C就可以结束运行，也可以直接关掉。</p>
-]]></content>
-      <categories>
-        <category>计算机</category>
-        <category>Web</category>
-      </categories>
-      <tags>
-        <tag>学习记录</tag>
-        <tag>前端</tag>
-        <tag>Web</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>cnpm的安装</title>
     <url>/posts/9d9d5327.html</url>
     <content><![CDATA[<p>这是一个小知识，由于npm的安装很慢，有时候还会出现错误，所以用其他的源进行安装，我看网上大部分用的都是淘宝的源，所以我这个也是用的他的源，我自己试过，确实好用，很多由于网络问题的东西都不报错了，能正常安装下载也快</p>
@@ -96,6 +69,33 @@
       </categories>
   </entry>
   <entry>
+    <title>Hbuilder的vue前端环境搭建</title>
+    <url>/posts/2a0710bf.html</url>
+    <content><![CDATA[<h1 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h1><p>安装好node.js，需要用到这个东西来启动vue</p>
+<h1 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h1><p>用hbuilder提供的模板直接就可以创建一个vue项目<br><img src="/posts/2a0710bf/Snipaste_2021-10-07_18-06-22.png" alt></p>
+<p><img src="/posts/2a0710bf/Snipaste_2021-10-07_18-07-00.png" alt></p>
+<h1 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h1><p>在设置运行环境中配置nodejs环境，安装你的安装位置找到你的nodejs，这里我选择的是外部终端，由于内部终端有问题不能用，我也没找到解决办法，所以就用了外部终端</p>
+<span id="more"></span>
+<p><img src="/posts/2a0710bf/Snipaste_2021-10-07_18-06-44.png" alt></p>
+<h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><p>之后先编译构建然后运行然后就能在浏览器中运行你的vue了</p>
+<p><img src="/posts/2a0710bf/Snipaste_2021-10-07_18-13-53.png" alt></p>
+<p><img src="/posts/2a0710bf/Snipaste_2021-10-07_18-14-54.png" alt></p>
+<p><img src="/posts/2a0710bf/Snipaste_2021-10-07_18-15-21.png" alt></p>
+<p>输入上方的网址进入你的vue项目界面</p>
+<p><img src="/posts/2a0710bf/Snipaste_2021-10-07_18-17-48.png" alt></p>
+<p>之后在命令行按Ctrl+C就可以结束运行，也可以直接关掉。</p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>Web</category>
+      </categories>
+      <tags>
+        <tag>学习记录</tag>
+        <tag>前端</tag>
+        <tag>Web</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>springMVC配置</title>
     <url>/posts/26f6cf92.html</url>
     <content><![CDATA[<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>我的环境是idea2021.3.1还有一个tomacat9</p>
@@ -123,6 +123,23 @@
         <tag>学习记录</tag>
         <tag>后端</tag>
         <tag>spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>unity创建一个新游戏（1）</title>
+    <url>/posts/463f42bc.html</url>
+    <content><![CDATA[<h1 id="创建一个新项目"><a href="#创建一个新项目" class="headerlink" title="创建一个新项目"></a>创建一个新项目</h1><h2 id="unity安装"><a href="#unity安装" class="headerlink" title="unity安装"></a>unity安装</h2><p>我们先创建一个新项目，之前我们需要安装unity，现在是用unity hub这个软件，在这个软件中下载我们的unity编辑器。<br><img src="/posts/463f42bc/Unity_Hub_nfBzdZhVD5.png" alt><br>下载地址在unity官方网站，然后你就下就行了。<br>之后选择一个需要的编辑器版本，选个稳定版就可以了<br><img src="/posts/463f42bc/Snipaste_2023-01-19_20-20-10.png" alt><br><img src="/posts/463f42bc/Unity_Hub_Rei4aGS4xO.png" alt><br>随便选择一个版本即可。</p>
+<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p>然后我们创建一个新项目3d即可<br><img src="/posts/463f42bc/Snipaste_2023-01-19_20-27-00.png" alt><br><img src="/posts/463f42bc/Snipaste_2023-01-19_20-27-41.png" alt><br><img src="/posts/463f42bc/Snipaste_2023-01-19_20-27-14.png" alt><br>我们的新项目就创建好了<br>之后我们就可以大展拳脚了。</p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>游戏开发</category>
+        <category>unity</category>
+      </categories>
+      <tags>
+        <tag>学习记录</tag>
+        <tag>unity</tag>
+        <tag>游戏开发</tag>
       </tags>
   </entry>
   <entry>
@@ -249,23 +266,6 @@
         <tag>学习记录</tag>
         <tag>算法</tag>
         <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>unity创建一个新游戏（1）</title>
-    <url>/posts/463f42bc.html</url>
-    <content><![CDATA[<h1 id="创建一个新项目"><a href="#创建一个新项目" class="headerlink" title="创建一个新项目"></a>创建一个新项目</h1><h2 id="unity安装"><a href="#unity安装" class="headerlink" title="unity安装"></a>unity安装</h2><p>我们先创建一个新项目，之前我们需要安装unity，现在是用unity hub这个软件，在这个软件中下载我们的unity编辑器。<br><img src="/posts/463f42bc/Unity_Hub_nfBzdZhVD5.png" alt><br>下载地址在unity官方网站，然后你就下就行了。<br>之后选择一个需要的编辑器版本，选个稳定版就可以了<br><img src="/posts/463f42bc/Snipaste_2023-01-19_20-20-10.png" alt><br><img src="/posts/463f42bc/Unity_Hub_Rei4aGS4xO.png" alt><br>随便选择一个版本即可。</p>
-<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p>然后我们创建一个新项目3d即可<br><img src="/posts/463f42bc/Snipaste_2023-01-19_20-27-00.png" alt><br><img src="/posts/463f42bc/Snipaste_2023-01-19_20-27-41.png" alt><br><img src="/posts/463f42bc/Snipaste_2023-01-19_20-27-14.png" alt><br>我们的新项目就创建好了<br>之后我们就可以大展拳脚了。</p>
-]]></content>
-      <categories>
-        <category>计算机</category>
-        <category>游戏开发</category>
-        <category>unity</category>
-      </categories>
-      <tags>
-        <tag>学习记录</tag>
-        <tag>unity</tag>
-        <tag>游戏开发</tag>
       </tags>
   </entry>
 </search>
