@@ -252,7 +252,7 @@
       </tags>
   </entry>
   <entry>
-    <title>springMVC配置</title>
+    <title>unity创建一个新游戏（1）</title>
     <url>/posts/26f6cf92.html</url>
     <content><![CDATA[<h1 id="创建一个新项目"><a href="#创建一个新项目" class="headerlink" title="创建一个新项目"></a>创建一个新项目</h1><h2 id="unity安装"><a href="#unity安装" class="headerlink" title="unity安装"></a>unity安装</h2><p>我们先创建一个新项目，之前我们需要安装unity，现在是用unity hub这个软件，在这个软件中下载我们的unity编辑器。<br>![[Unity_Hub_nfBzdZhVD5.png]]<br>下载地址在unity官方网站，然后你就下就行了。<br>之后选择一个需要的编辑器版本，选个稳定版就可以了<br>![[Snipaste_2023-01-19_20-20-10.png]]<br>![[Unity_Hub_Rei4aGS4xO.png]]<br>随便选择一个版本即可。</p>
 <h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p>然后我们创建一个新项目3d即可<br>![[Snipaste_2023-01-19_20-27-00.png]]<br>![[Snipaste_2023-01-19_20-27-41.png]]<br>![[Snipaste_2023-01-19_20-27-14.png]]<br>我们的新项目就创建好了<br>之后我们就可以大展拳脚了。</p>
