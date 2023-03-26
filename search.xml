@@ -268,4 +268,24 @@
         <tag>C++</tag>
       </tags>
   </entry>
+  <entry>
+    <title>3DRpg-4-Navigation智能导航场景</title>
+    <url>/posts/c156556f.html</url>
+    <content><![CDATA[<h1 id="Navigation智能导航场景"><a href="#Navigation智能导航场景" class="headerlink" title="Navigation智能导航场景"></a>Navigation智能导航场景</h1><p>这里使用navigation做一个场景的一个可移动和不可移动的区域的划分</p>
+<p><img src="/posts/c156556f/Snipaste_2023-03-26_20-07-00.png" alt><br>这里是可以让这个物体设置成静态的，然后最后一个选项是选择他是可以走动的还是不可以走动的</p>
+<p><img src="/posts/c156556f/Snipaste_2023-03-26_20-07-10.png" alt><br>这里是设置我们要移动的物体可以上坡的一个度数</p>
+<p><img src="/posts/c156556f/Snipaste_2023-03-26_20-07-17.png" alt><br>这里我们可以使用Bake来烘焙我们的场景，让这个智能导航生效</p>
+<p><img src="/posts/c156556f/Snipaste_2023-03-26_20-07-28.png" alt><br>我们需要给我们的角色添加上Nav Mesh Agent这个组件来和我们的这个navigation产生一个互动</p>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+        <category>游戏引擎</category>
+        <category>Unity</category>
+      </categories>
+      <tags>
+        <tag>学习记录</tag>
+        <tag>游戏开发</tag>
+        <tag>Unity</tag>
+      </tags>
+  </entry>
 </search>
