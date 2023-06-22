@@ -507,4 +507,20 @@
         <tag>Unity</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Function中bind()</title>
+    <url>/posts/14846da0.html</url>
+    <content><![CDATA[<p><code>bind()</code>方法会创建一个新函数，当这个新函数被调用时，它的<code>this</code>值是传递给<code>bind()</code>的第一个参数，它的参数是<code>bind()</code>的其他参数和其原本的参数。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">x</span> = <span class="number">9</span>; </span><br><span class="line"><span class="keyword">var</span> <span class="variable language_">module</span> = &#123;</span><br><span class="line"> <span class="attr">x</span>: <span class="number">81</span>,</span><br><span class="line"> <span class="attr">getX</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123; <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">x</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="variable language_">module</span>.<span class="title function_">getX</span>(); <span class="comment">// 返回 81</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> retrieveX = <span class="variable language_">module</span>.<span class="property">getX</span>;</span><br><span class="line"><span class="title function_">retrieveX</span>(); <span class="comment">// 返回 9, 在这种情况下，&quot;this&quot;指向全局作用域</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个新函数，将&quot;this&quot;绑定到module对象</span></span><br><span class="line"><span class="comment">// 新手可能会被全局的x变量和module里的属性x所迷惑</span></span><br><span class="line"><span class="keyword">var</span> boundGetX = retrieveX.<span class="title function_">bind</span>(<span class="variable language_">module</span>);</span><br><span class="line"><span class="title function_">boundGetX</span>(); <span class="comment">// 返回 81</span></span><br></pre></td></tr></table></figure>
+<p>通过绑定我们可以让this指向我们想要的对象上，可以实现很多操作，例如事件之类的功能。</p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>TypeScripts</category>
+      </categories>
+      <tags>
+        <tag>学习记录</tag>
+        <tag>TypeScripts</tag>
+      </tags>
+  </entry>
 </search>
