@@ -523,4 +523,24 @@
         <tag>TypeScripts</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Scons的简单使用</title>
+    <url>/posts/95acef7c.html</url>
+    <content><![CDATA[<h1 id="介绍和简单使用"><a href="#介绍和简单使用" class="headerlink" title="介绍和简单使用"></a>介绍和简单使用</h1><p>Scons是Python中的一个库，可以用于编译Cpp文件，我们需要在pip中安装Scons<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install Scons</span><br></pre></td></tr></table></figure><br>之后我们可以使用Scons命令来编译cpp文件。<br>我们需要在需要编译的文件夹下添加<code>Sconstruct</code>文件，在里面加入py代码，之后就可以启动命令行输入Scons命令来编译cpp<br>例子<br><code>Sconstruct</code><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Programe(<span class="string">&quot;hello&quot;</span>,<span class="string">&quot;main.cpp&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello&quot;</span>)</span><br></pre></td></tr></table></figure><br><code>main.cpp</code><br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	std::cout&lt;&lt;<span class="string">&quot;hello world!&quot;</span>&lt;&lt;std::endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这段简单的例子可以输出一个<code>hello</code>和一个<code>hello world</code> ，这是因为<code>Sconstruct</code>是一个py代码，会运行执行了一个<code>Program</code>编译过<code>main.cpp</code>后会运行<code>print</code>，在控制台会有其他的输出，如果你不想要可以使用 <code>-Q</code> 来忽略。</p>
+<p>使用<code>StaticLibrary</code>是获得一个静态链接库来供其他cpp程序使用，使用方法类似于<code>Program</code>，在windows下会生成.lib在linux下会生成.a。</p>
+<p>使用<code>SharedLibrary</code>是获得一个动态链接库，用法也于之前的方法类似，linux下生成一个.so，windows下生成一个.dll。</p>
+<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>CC 定义你用哪个编译器编译<br>CFLAGS 定义了C++标志<br>LIBS 定义你要使用的库<br>LIBPATHS 是库的路径<br>CPPPATH 是包含的文件路径<br>CPPDEFINES 是定义了我们想要在C++程序中定义的宏</p>
+<h1 id="编译一个使用动态库的cpp"><a href="#编译一个使用动态库的cpp" class="headerlink" title="编译一个使用动态库的cpp"></a>编译一个使用动态库的cpp</h1><p>包含的文件<br>-src<br> -math.so<br> -math.h<br> -main.cpp<br> -Sconstruct<br><code>Sconstruct</code><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">env = Environment(LIBS=[<span class="string">&#x27;math&#x27;</span>],LIBPATH=<span class="string">&#x27;.&#x27;</span>)</span><br><span class="line">env.Program(<span class="string">&#x27;hello&#x27;</span>,<span class="string">&#x27;main.cpp&#x27;</span>)</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>cpp</category>
+      </categories>
+      <tags>
+        <tag>学习记录</tag>
+        <tag>cpp</tag>
+        <tag>编译</tag>
+        <tag>cpp工具</tag>
+      </tags>
+  </entry>
 </search>
