@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>3DRpg-6-SetCursor设置鼠标图标和单例模式</title>
-    <url>/posts/c05a1912.html</url>
-    <content><![CDATA[<p><code>MouseManager.cs</code><br><figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="comment">// using UnityEngine.Events;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//由于这里不是继承MonoBehaviour所以需要序列化后才能在unity中显示</span></span><br><span class="line"><span class="comment">// [System.Serializable]</span></span><br><span class="line"><span class="comment">// public class EventVector3:UnityEvent&lt;Vector3&gt;&#123;&#125;</span></span><br><span class="line"><span class="comment">//起初的拖拽式的添加方式</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MouseManager</span>: <span class="title">MonoBehaviour</span> &#123;</span><br><span class="line">    <span class="comment">//一个简单的单例模式</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> MouseManager Instance;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取图片的变量</span></span><br><span class="line">    <span class="keyword">public</span> Texture2D point, doorway, attack, target, arrow;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//保存射线碰撞的信息</span></span><br><span class="line">    RaycastHit hitInfo;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// public EventVector3 OnMouseClicked;</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">event</span> Action &lt; Vector3 &gt; OnMouseClicked;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Awake</span>()</span> &#123;</span><br><span class="line">        <span class="comment">//单例的一个实现，如果已经存在一个Instance了那么就不用在出现一个MouseManager了，就销毁自身</span></span><br><span class="line">        <span class="keyword">if</span> (Instance != <span class="literal">null</span>) Destroy(gameObject);</span><br><span class="line">        Instance = <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span> &#123;</span><br><span class="line">        SetCursorTexture();</span><br><span class="line">        MouseControl();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">SetCursorTexture</span>()</span> &#123;</span><br><span class="line">            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);</span><br><span class="line">            <span class="keyword">if</span> (Physics.Raycast(ray, <span class="keyword">out</span> hitInfo)) &#123;</span><br><span class="line">                <span class="comment">//切换鼠标贴图</span></span><br><span class="line">                <span class="keyword">switch</span> (hitInfo.collider.gameObject.tag) &#123;</span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&quot;Ground&quot;</span>:</span><br><span class="line">                        <span class="comment">//这里中间的Vector2是一个偏移，因为这张图片是一个圆的狙击镜类似的，所以要让鼠标点保持在这张图片的中间</span></span><br><span class="line">                        Cursor.SetCursor(target, <span class="keyword">new</span> Vector2(<span class="number">16</span>, <span class="number">16</span>), CursorMode.Auto);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="literal">default</span>:</span><br><span class="line">                        Cursor.SetCursor(arrow, <span class="keyword">new</span> Vector2(<span class="number">16</span>, <span class="number">16</span>), CursorMode.Auto);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//点击后传入我们的hitinfo的position（点击的位置）传入Event</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">MouseControl</span>()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (Input.GetMouseButtonDown(<span class="number">0</span>) &amp;&amp; hitInfo.collider != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (hitInfo.collider.gameObject.CompareTag(<span class="string">&quot;Ground&quot;</span>)) &#123;</span><br><span class="line">                OnMouseClicked ? .Invoke(hitInfo.point);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><code>PlayerController.cs</code><br><figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.AI;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PlayerController</span>: <span class="title">MonoBehaviour</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> NavMeshAgent agent;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Awake</span>()</span> &#123;</span><br><span class="line">        agent = GetComponent &lt; NavMeshAgent &gt; ();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>()</span> &#123;</span><br><span class="line">        MouseManager.Instance.OnMouseClicked += MoveToTarget;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">MoveToTarget</span>(<span class="params">Vector3 target</span>)</span> &#123;</span><br><span class="line">        agent.destination = target;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这里添加之前的没写的鼠标图标的切换的功能和切换了使用C#内置的事件来代替之前的Unity内置事件，添加了一个<code>PlayerController</code>来管理玩家</p>
-<p><img src="/posts/c05a1912/Snipaste_2023-03-26_21-26-37.png" alt><br>整理Scripts文件夹，将Manager和Controller分开</p>
-<p><img src="/posts/c05a1912/Snipaste_2023-03-26_21-18-51.png" alt><br>图标可以在麦扣老师的视频底下下载，图标设置成这样，不然可能会报黄色警报，开启<code>Alpha Is Transparency</code>可以将背景设为透明，<code>Format</code>设置成<code>RGB 32</code>，关闭<code>Generate Mip Maps</code>和打开<code>Read/Write</code>，我也不知道为啥要打开最后这个读取或写入，因为报警告所以试着打开后就不报了。</p>
+    <title>3DRpg-5-MouseManager鼠标点击移动方法</title>
+    <url>/posts/ff326c84.html</url>
+    <content><![CDATA[<h1 id="UnityEvent"><a href="#UnityEvent" class="headerlink" title="UnityEvent"></a>UnityEvent</h1><p>使用了UnityEngine.Events这个Unity内置的事件来作为触发<br><figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.Events;</span><br><span class="line"></span><br><span class="line"><span class="comment">//由于这里不是继承MonoBehaviour所以需要序列化后才能在unity中显示</span></span><br><span class="line">[<span class="meta">System.Serializable</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">EventVector3</span>:<span class="title">UnityEvent</span>&lt;<span class="title">Vector3</span>&gt;&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MouseManager</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//保存射线碰撞的信息</span></span><br><span class="line">    RaycastHit hitInfo;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> EventVector3 OnMouseClicked;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span> &#123;</span><br><span class="line">        SetCursorTexture();</span><br><span class="line">        MouseControl();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">SetCursorTexture</span>()</span>&#123;</span><br><span class="line">        Ray ray=Camera.main.ScreenPointToRay(Input.mousePosition);</span><br><span class="line">        <span class="keyword">if</span>(Physics.Raycast(ray,<span class="keyword">out</span> hitInfo))&#123;</span><br><span class="line">            <span class="comment">//切换鼠标贴图</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//点击后传入我们的hitinfo的position（点击的位置）传入Event</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">MouseControl</span>()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(Input.GetMouseButtonDown(<span class="number">0</span>)&amp;&amp;hitInfo.collider!=<span class="literal">null</span>)&#123;</span><br><span class="line">	        <span class="comment">//这里是触碰到的物体的标签是Ground时执行这个事件，也就是说只有摸到地面的时候才执行</span></span><br><span class="line">            <span class="keyword">if</span>(hitInfo.collider.gameObject.CompareTag(<span class="string">&quot;Ground&quot;</span>))&#123;</span><br><span class="line">                OnMouseClicked?.Invoke(hitInfo.point);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这个脚本挂载在场景中的<code>MouseManager</code>中，然后添加一个物体的函数注册到这个事件中去。</p>
+<p><img src="/posts/ff326c84/Snipaste_2023-03-26_20-39-40.png" alt></p>
 ]]></content>
       <categories>
         <category>游戏开发</category>
@@ -41,10 +40,11 @@
       </tags>
   </entry>
   <entry>
-    <title>3DRpg-5-MouseManager鼠标点击移动方法</title>
-    <url>/posts/ff326c84.html</url>
-    <content><![CDATA[<h1 id="UnityEvent"><a href="#UnityEvent" class="headerlink" title="UnityEvent"></a>UnityEvent</h1><p>使用了UnityEngine.Events这个Unity内置的事件来作为触发<br><figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.Events;</span><br><span class="line"></span><br><span class="line"><span class="comment">//由于这里不是继承MonoBehaviour所以需要序列化后才能在unity中显示</span></span><br><span class="line">[<span class="meta">System.Serializable</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">EventVector3</span>:<span class="title">UnityEvent</span>&lt;<span class="title">Vector3</span>&gt;&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MouseManager</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//保存射线碰撞的信息</span></span><br><span class="line">    RaycastHit hitInfo;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> EventVector3 OnMouseClicked;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span> &#123;</span><br><span class="line">        SetCursorTexture();</span><br><span class="line">        MouseControl();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">SetCursorTexture</span>()</span>&#123;</span><br><span class="line">        Ray ray=Camera.main.ScreenPointToRay(Input.mousePosition);</span><br><span class="line">        <span class="keyword">if</span>(Physics.Raycast(ray,<span class="keyword">out</span> hitInfo))&#123;</span><br><span class="line">            <span class="comment">//切换鼠标贴图</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//点击后传入我们的hitinfo的position（点击的位置）传入Event</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">MouseControl</span>()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(Input.GetMouseButtonDown(<span class="number">0</span>)&amp;&amp;hitInfo.collider!=<span class="literal">null</span>)&#123;</span><br><span class="line">	        <span class="comment">//这里是触碰到的物体的标签是Ground时执行这个事件，也就是说只有摸到地面的时候才执行</span></span><br><span class="line">            <span class="keyword">if</span>(hitInfo.collider.gameObject.CompareTag(<span class="string">&quot;Ground&quot;</span>))&#123;</span><br><span class="line">                OnMouseClicked?.Invoke(hitInfo.point);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这个脚本挂载在场景中的<code>MouseManager</code>中，然后添加一个物体的函数注册到这个事件中去。</p>
-<p><img src="/posts/ff326c84/Snipaste_2023-03-26_20-39-40.png" alt></p>
+    <title>3DRpg-6-SetCursor设置鼠标图标和单例模式</title>
+    <url>/posts/c05a1912.html</url>
+    <content><![CDATA[<p><code>MouseManager.cs</code><br><figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="comment">// using UnityEngine.Events;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//由于这里不是继承MonoBehaviour所以需要序列化后才能在unity中显示</span></span><br><span class="line"><span class="comment">// [System.Serializable]</span></span><br><span class="line"><span class="comment">// public class EventVector3:UnityEvent&lt;Vector3&gt;&#123;&#125;</span></span><br><span class="line"><span class="comment">//起初的拖拽式的添加方式</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MouseManager</span>: <span class="title">MonoBehaviour</span> &#123;</span><br><span class="line">    <span class="comment">//一个简单的单例模式</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> MouseManager Instance;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取图片的变量</span></span><br><span class="line">    <span class="keyword">public</span> Texture2D point, doorway, attack, target, arrow;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//保存射线碰撞的信息</span></span><br><span class="line">    RaycastHit hitInfo;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// public EventVector3 OnMouseClicked;</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">event</span> Action &lt; Vector3 &gt; OnMouseClicked;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Awake</span>()</span> &#123;</span><br><span class="line">        <span class="comment">//单例的一个实现，如果已经存在一个Instance了那么就不用在出现一个MouseManager了，就销毁自身</span></span><br><span class="line">        <span class="keyword">if</span> (Instance != <span class="literal">null</span>) Destroy(gameObject);</span><br><span class="line">        Instance = <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span> &#123;</span><br><span class="line">        SetCursorTexture();</span><br><span class="line">        MouseControl();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">SetCursorTexture</span>()</span> &#123;</span><br><span class="line">            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);</span><br><span class="line">            <span class="keyword">if</span> (Physics.Raycast(ray, <span class="keyword">out</span> hitInfo)) &#123;</span><br><span class="line">                <span class="comment">//切换鼠标贴图</span></span><br><span class="line">                <span class="keyword">switch</span> (hitInfo.collider.gameObject.tag) &#123;</span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&quot;Ground&quot;</span>:</span><br><span class="line">                        <span class="comment">//这里中间的Vector2是一个偏移，因为这张图片是一个圆的狙击镜类似的，所以要让鼠标点保持在这张图片的中间</span></span><br><span class="line">                        Cursor.SetCursor(target, <span class="keyword">new</span> Vector2(<span class="number">16</span>, <span class="number">16</span>), CursorMode.Auto);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="literal">default</span>:</span><br><span class="line">                        Cursor.SetCursor(arrow, <span class="keyword">new</span> Vector2(<span class="number">16</span>, <span class="number">16</span>), CursorMode.Auto);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//点击后传入我们的hitinfo的position（点击的位置）传入Event</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">MouseControl</span>()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (Input.GetMouseButtonDown(<span class="number">0</span>) &amp;&amp; hitInfo.collider != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (hitInfo.collider.gameObject.CompareTag(<span class="string">&quot;Ground&quot;</span>)) &#123;</span><br><span class="line">                OnMouseClicked ? .Invoke(hitInfo.point);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><code>PlayerController.cs</code><br><figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.AI;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PlayerController</span>: <span class="title">MonoBehaviour</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> NavMeshAgent agent;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Awake</span>()</span> &#123;</span><br><span class="line">        agent = GetComponent &lt; NavMeshAgent &gt; ();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>()</span> &#123;</span><br><span class="line">        MouseManager.Instance.OnMouseClicked += MoveToTarget;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">MoveToTarget</span>(<span class="params">Vector3 target</span>)</span> &#123;</span><br><span class="line">        agent.destination = target;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这里添加之前的没写的鼠标图标的切换的功能和切换了使用C#内置的事件来代替之前的Unity内置事件，添加了一个<code>PlayerController</code>来管理玩家</p>
+<p><img src="/posts/c05a1912/Snipaste_2023-03-26_21-26-37.png" alt><br>整理Scripts文件夹，将Manager和Controller分开</p>
+<p><img src="/posts/c05a1912/Snipaste_2023-03-26_21-18-51.png" alt><br>图标可以在麦扣老师的视频底下下载，图标设置成这样，不然可能会报黄色警报，开启<code>Alpha Is Transparency</code>可以将背景设为透明，<code>Format</code>设置成<code>RGB 32</code>，关闭<code>Generate Mip Maps</code>和打开<code>Read/Write</code>，我也不知道为啥要打开最后这个读取或写入，因为报警告所以试着打开后就不报了。</p>
 ]]></content>
       <categories>
         <category>游戏开发</category>
@@ -160,6 +160,22 @@
       </tags>
   </entry>
   <entry>
+    <title>Function中bind()</title>
+    <url>/posts/14846da0.html</url>
+    <content><![CDATA[<p><code>bind()</code>方法会创建一个新函数，当这个新函数被调用时，它的<code>this</code>值是传递给<code>bind()</code>的第一个参数，它的参数是<code>bind()</code>的其他参数和其原本的参数。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">x</span> = <span class="number">9</span>; </span><br><span class="line"><span class="keyword">var</span> <span class="variable language_">module</span> = &#123;</span><br><span class="line"> <span class="attr">x</span>: <span class="number">81</span>,</span><br><span class="line"> <span class="attr">getX</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123; <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">x</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="variable language_">module</span>.<span class="title function_">getX</span>(); <span class="comment">// 返回 81</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> retrieveX = <span class="variable language_">module</span>.<span class="property">getX</span>;</span><br><span class="line"><span class="title function_">retrieveX</span>(); <span class="comment">// 返回 9, 在这种情况下，&quot;this&quot;指向全局作用域</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个新函数，将&quot;this&quot;绑定到module对象</span></span><br><span class="line"><span class="comment">// 新手可能会被全局的x变量和module里的属性x所迷惑</span></span><br><span class="line"><span class="keyword">var</span> boundGetX = retrieveX.<span class="title function_">bind</span>(<span class="variable language_">module</span>);</span><br><span class="line"><span class="title function_">boundGetX</span>(); <span class="comment">// 返回 81</span></span><br></pre></td></tr></table></figure>
+<p>通过绑定我们可以让this指向我们想要的对象上，可以实现很多操作，例如事件之类的功能。</p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>TypeScripts</category>
+      </categories>
+      <tags>
+        <tag>学习记录</tag>
+        <tag>TypeScripts</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hbuilder的vue前端环境搭建</title>
     <url>/posts/2a0710bf.html</url>
     <content><![CDATA[<h1 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h1><p>安装好node.js，需要用到这个东西来启动vue</p>
@@ -248,6 +264,38 @@
       </tags>
   </entry>
   <entry>
+    <title>Scons的简单使用</title>
+    <url>/posts/95acef7c.html</url>
+    <content><![CDATA[<h1 id="介绍和简单使用"><a href="#介绍和简单使用" class="headerlink" title="介绍和简单使用"></a>介绍和简单使用</h1><p>Scons是Python中的一个库，可以用于编译Cpp文件，我们需要在pip中安装Scons<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install Scons</span><br></pre></td></tr></table></figure><br>之后我们可以使用Scons命令来编译cpp文件。<br>我们需要在需要编译的文件夹下添加<code>Sconstruct</code>文件，在里面加入py代码，之后就可以启动命令行输入Scons命令来编译cpp<br>例子<br><code>Sconstruct</code><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Programe(<span class="string">&quot;hello&quot;</span>,<span class="string">&quot;main.cpp&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello&quot;</span>)</span><br></pre></td></tr></table></figure><br><code>main.cpp</code><br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	std::cout&lt;&lt;<span class="string">&quot;hello world!&quot;</span>&lt;&lt;std::endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这段简单的例子可以输出一个<code>hello</code>和一个<code>hello world</code> ，这是因为<code>Sconstruct</code>是一个py代码，会运行执行了一个<code>Program</code>编译过<code>main.cpp</code>后会运行<code>print</code>，在控制台会有其他的输出，如果你不想要可以使用 <code>-Q</code> 来忽略。</p>
+<p>使用<code>StaticLibrary</code>是获得一个静态链接库来供其他cpp程序使用，使用方法类似于<code>Program</code>，在windows下会生成.lib在linux下会生成.a。</p>
+<p>使用<code>SharedLibrary</code>是获得一个动态链接库，用法也于之前的方法类似，linux下生成一个.so，windows下生成一个.dll。</p>
+<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>CC 定义你用哪个编译器编译<br>CFLAGS 定义了C++标志<br>LIBS 定义你要使用的库<br>LIBPATHS 是库的路径<br>CPPPATH 是包含的文件路径<br>CPPDEFINES 是定义了我们想要在C++程序中定义的宏</p>
+<h1 id="编译一个使用动态库的cpp"><a href="#编译一个使用动态库的cpp" class="headerlink" title="编译一个使用动态库的cpp"></a>编译一个使用动态库的cpp</h1><p>包含的文件<br>-src<br> -math.so<br> -math.h<br> -main.cpp<br> -Sconstruct<br><code>Sconstruct</code><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">env = Environment(LIBS=[<span class="string">&#x27;math&#x27;</span>],LIBPATH=<span class="string">&#x27;.&#x27;</span>)</span><br><span class="line">env.Program(<span class="string">&#x27;hello&#x27;</span>,<span class="string">&#x27;main.cpp&#x27;</span>)</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>cpp</category>
+      </categories>
+      <tags>
+        <tag>学习记录</tag>
+        <tag>cpp</tag>
+        <tag>编译</tag>
+        <tag>cpp工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cnpm的安装</title>
+    <url>/posts/9d9d5327.html</url>
+    <content><![CDATA[<p>这是一个小知识，由于npm的安装很慢，有时候还会出现错误，所以用其他的源进行安装，我看网上大部分用的都是淘宝的源，所以我这个也是用的他的源，我自己试过，确实好用，很多由于网络问题的东西都不报错了，能正常安装下载也快</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npmmirror.com</span><br></pre></td></tr></table></figure>
+<p>这样就能用cnpm代替npm使用了。<br>其他方法可以参考<a href="https://npmmirror.com/">淘宝 NPM 镜像 (npmmirror.com)</a></p>
+]]></content>
+      <tags>
+        <tag>小知识</tag>
+        <tag>nodejs</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>UI管理器的实现</title>
     <url>/posts/ca9306b0.html</url>
     <content><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>一个简单管理UI的一个管理类</p>
@@ -273,18 +321,6 @@
       </tags>
   </entry>
   <entry>
-    <title>cnpm的安装</title>
-    <url>/posts/9d9d5327.html</url>
-    <content><![CDATA[<p>这是一个小知识，由于npm的安装很慢，有时候还会出现错误，所以用其他的源进行安装，我看网上大部分用的都是淘宝的源，所以我这个也是用的他的源，我自己试过，确实好用，很多由于网络问题的东西都不报错了，能正常安装下载也快</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npmmirror.com</span><br></pre></td></tr></table></figure>
-<p>这样就能用cnpm代替npm使用了。<br>其他方法可以参考<a href="https://npmmirror.com/">淘宝 NPM 镜像 (npmmirror.com)</a></p>
-]]></content>
-      <tags>
-        <tag>小知识</tag>
-        <tag>nodejs</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hello World</title>
     <url>/posts/4a17b156.html</url>
     <content><![CDATA[<p>欢迎来到<a href="https://hexo.io/">Hexo</a>！这是一个很棒的文章。查看<a href="https://hexo.io/docs/">文档</a>去获取更多的信息。如果你有很多的问题当你使用Hexo，你能找到很多答案在<a href="https://hexo.io/docs/troubleshooting.html">问题解答</a>或你能向我提问在<a href="https://github.com/hexojs/hexo/issues">GitHub</a>。</p>
@@ -302,23 +338,6 @@
         <category>Web</category>
         <category>Hexo</category>
       </categories>
-  </entry>
-  <entry>
-    <title>unity创建一个新游戏（1）</title>
-    <url>/posts/463f42bc.html</url>
-    <content><![CDATA[<h1 id="创建一个新项目"><a href="#创建一个新项目" class="headerlink" title="创建一个新项目"></a>创建一个新项目</h1><h2 id="unity安装"><a href="#unity安装" class="headerlink" title="unity安装"></a>unity安装</h2><p>我们先创建一个新项目，之前我们需要安装unity，现在是用unity hub这个软件，在这个软件中下载我们的unity编辑器。<br><img src="/posts/463f42bc/Unity_Hub_nfBzdZhVD5.png" alt><br>下载地址在unity官方网站，然后你就下就行了。<br>之后选择一个需要的编辑器版本，选个稳定版就可以了<br><img src="/posts/463f42bc/Snipaste_2023-01-19_20-20-10.png" alt><br><img src="/posts/463f42bc/Unity_Hub_Rei4aGS4xO.png" alt><br>随便选择一个版本即可。</p>
-<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p>然后我们创建一个新项目3d即可<br><img src="/posts/463f42bc/Snipaste_2023-01-19_20-27-00.png" alt><br><img src="/posts/463f42bc/Snipaste_2023-01-19_20-27-41.png" alt><br><img src="/posts/463f42bc/Snipaste_2023-01-19_20-27-14.png" alt><br>我们的新项目就创建好了<br>之后我们就可以大展拳脚了。</p>
-]]></content>
-      <categories>
-        <category>游戏开发</category>
-        <category>游戏引擎</category>
-        <category>Unity</category>
-      </categories>
-      <tags>
-        <tag>学习记录</tag>
-        <tag>unity</tag>
-        <tag>游戏开发</tag>
-      </tags>
   </entry>
   <entry>
     <title>springMVC配置</title>
@@ -348,6 +367,23 @@
         <tag>学习记录</tag>
         <tag>后端</tag>
         <tag>spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>unity创建一个新游戏（1）</title>
+    <url>/posts/463f42bc.html</url>
+    <content><![CDATA[<h1 id="创建一个新项目"><a href="#创建一个新项目" class="headerlink" title="创建一个新项目"></a>创建一个新项目</h1><h2 id="unity安装"><a href="#unity安装" class="headerlink" title="unity安装"></a>unity安装</h2><p>我们先创建一个新项目，之前我们需要安装unity，现在是用unity hub这个软件，在这个软件中下载我们的unity编辑器。<br><img src="/posts/463f42bc/Unity_Hub_nfBzdZhVD5.png" alt><br>下载地址在unity官方网站，然后你就下就行了。<br>之后选择一个需要的编辑器版本，选个稳定版就可以了<br><img src="/posts/463f42bc/Snipaste_2023-01-19_20-20-10.png" alt><br><img src="/posts/463f42bc/Unity_Hub_Rei4aGS4xO.png" alt><br>随便选择一个版本即可。</p>
+<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p>然后我们创建一个新项目3d即可<br><img src="/posts/463f42bc/Snipaste_2023-01-19_20-27-00.png" alt><br><img src="/posts/463f42bc/Snipaste_2023-01-19_20-27-41.png" alt><br><img src="/posts/463f42bc/Snipaste_2023-01-19_20-27-14.png" alt><br>我们的新项目就创建好了<br>之后我们就可以大展拳脚了。</p>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+        <category>游戏引擎</category>
+        <category>Unity</category>
+      </categories>
+      <tags>
+        <tag>学习记录</tag>
+        <tag>unity</tag>
+        <tag>游戏开发</tag>
       </tags>
   </entry>
   <entry>
@@ -505,42 +541,6 @@
         <tag>游戏开发</tag>
         <tag>性能优化</tag>
         <tag>Unity</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Function中bind()</title>
-    <url>/posts/14846da0.html</url>
-    <content><![CDATA[<p><code>bind()</code>方法会创建一个新函数，当这个新函数被调用时，它的<code>this</code>值是传递给<code>bind()</code>的第一个参数，它的参数是<code>bind()</code>的其他参数和其原本的参数。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">x</span> = <span class="number">9</span>; </span><br><span class="line"><span class="keyword">var</span> <span class="variable language_">module</span> = &#123;</span><br><span class="line"> <span class="attr">x</span>: <span class="number">81</span>,</span><br><span class="line"> <span class="attr">getX</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123; <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">x</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="variable language_">module</span>.<span class="title function_">getX</span>(); <span class="comment">// 返回 81</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> retrieveX = <span class="variable language_">module</span>.<span class="property">getX</span>;</span><br><span class="line"><span class="title function_">retrieveX</span>(); <span class="comment">// 返回 9, 在这种情况下，&quot;this&quot;指向全局作用域</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个新函数，将&quot;this&quot;绑定到module对象</span></span><br><span class="line"><span class="comment">// 新手可能会被全局的x变量和module里的属性x所迷惑</span></span><br><span class="line"><span class="keyword">var</span> boundGetX = retrieveX.<span class="title function_">bind</span>(<span class="variable language_">module</span>);</span><br><span class="line"><span class="title function_">boundGetX</span>(); <span class="comment">// 返回 81</span></span><br></pre></td></tr></table></figure>
-<p>通过绑定我们可以让this指向我们想要的对象上，可以实现很多操作，例如事件之类的功能。</p>
-]]></content>
-      <categories>
-        <category>计算机</category>
-        <category>TypeScripts</category>
-      </categories>
-      <tags>
-        <tag>学习记录</tag>
-        <tag>TypeScripts</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Scons的简单使用</title>
-    <url>/posts/95acef7c.html</url>
-    <content><![CDATA[<h1 id="介绍和简单使用"><a href="#介绍和简单使用" class="headerlink" title="介绍和简单使用"></a>介绍和简单使用</h1><p>Scons是Python中的一个库，可以用于编译Cpp文件，我们需要在pip中安装Scons<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install Scons</span><br></pre></td></tr></table></figure><br>之后我们可以使用Scons命令来编译cpp文件。<br>我们需要在需要编译的文件夹下添加<code>Sconstruct</code>文件，在里面加入py代码，之后就可以启动命令行输入Scons命令来编译cpp<br>例子<br><code>Sconstruct</code><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Programe(<span class="string">&quot;hello&quot;</span>,<span class="string">&quot;main.cpp&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello&quot;</span>)</span><br></pre></td></tr></table></figure><br><code>main.cpp</code><br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	std::cout&lt;&lt;<span class="string">&quot;hello world!&quot;</span>&lt;&lt;std::endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这段简单的例子可以输出一个<code>hello</code>和一个<code>hello world</code> ，这是因为<code>Sconstruct</code>是一个py代码，会运行执行了一个<code>Program</code>编译过<code>main.cpp</code>后会运行<code>print</code>，在控制台会有其他的输出，如果你不想要可以使用 <code>-Q</code> 来忽略。</p>
-<p>使用<code>StaticLibrary</code>是获得一个静态链接库来供其他cpp程序使用，使用方法类似于<code>Program</code>，在windows下会生成.lib在linux下会生成.a。</p>
-<p>使用<code>SharedLibrary</code>是获得一个动态链接库，用法也于之前的方法类似，linux下生成一个.so，windows下生成一个.dll。</p>
-<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>CC 定义你用哪个编译器编译<br>CFLAGS 定义了C++标志<br>LIBS 定义你要使用的库<br>LIBPATHS 是库的路径<br>CPPPATH 是包含的文件路径<br>CPPDEFINES 是定义了我们想要在C++程序中定义的宏</p>
-<h1 id="编译一个使用动态库的cpp"><a href="#编译一个使用动态库的cpp" class="headerlink" title="编译一个使用动态库的cpp"></a>编译一个使用动态库的cpp</h1><p>包含的文件<br>-src<br> -math.so<br> -math.h<br> -main.cpp<br> -Sconstruct<br><code>Sconstruct</code><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">env = Environment(LIBS=[<span class="string">&#x27;math&#x27;</span>],LIBPATH=<span class="string">&#x27;.&#x27;</span>)</span><br><span class="line">env.Program(<span class="string">&#x27;hello&#x27;</span>,<span class="string">&#x27;main.cpp&#x27;</span>)</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <categories>
-        <category>计算机</category>
-        <category>cpp</category>
-      </categories>
-      <tags>
-        <tag>学习记录</tag>
-        <tag>cpp</tag>
-        <tag>编译</tag>
-        <tag>cpp工具</tag>
       </tags>
   </entry>
 </search>
