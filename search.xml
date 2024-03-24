@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>3DRpg-5-MouseManager鼠标点击移动方法</title>
-    <url>/posts/ff326c84.html</url>
-    <content><![CDATA[<h1 id="UnityEvent"><a href="#UnityEvent" class="headerlink" title="UnityEvent"></a>UnityEvent</h1><p>使用了UnityEngine.Events这个Unity内置的事件来作为触发<br><figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.Events;</span><br><span class="line"></span><br><span class="line"><span class="comment">//由于这里不是继承MonoBehaviour所以需要序列化后才能在unity中显示</span></span><br><span class="line">[<span class="meta">System.Serializable</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">EventVector3</span>:<span class="title">UnityEvent</span>&lt;<span class="title">Vector3</span>&gt;&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MouseManager</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//保存射线碰撞的信息</span></span><br><span class="line">    RaycastHit hitInfo;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> EventVector3 OnMouseClicked;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span> &#123;</span><br><span class="line">        SetCursorTexture();</span><br><span class="line">        MouseControl();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">SetCursorTexture</span>()</span>&#123;</span><br><span class="line">        Ray ray=Camera.main.ScreenPointToRay(Input.mousePosition);</span><br><span class="line">        <span class="keyword">if</span>(Physics.Raycast(ray,<span class="keyword">out</span> hitInfo))&#123;</span><br><span class="line">            <span class="comment">//切换鼠标贴图</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//点击后传入我们的hitinfo的position（点击的位置）传入Event</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">MouseControl</span>()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(Input.GetMouseButtonDown(<span class="number">0</span>)&amp;&amp;hitInfo.collider!=<span class="literal">null</span>)&#123;</span><br><span class="line">	        <span class="comment">//这里是触碰到的物体的标签是Ground时执行这个事件，也就是说只有摸到地面的时候才执行</span></span><br><span class="line">            <span class="keyword">if</span>(hitInfo.collider.gameObject.CompareTag(<span class="string">&quot;Ground&quot;</span>))&#123;</span><br><span class="line">                OnMouseClicked?.Invoke(hitInfo.point);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这个脚本挂载在场景中的<code>MouseManager</code>中，然后添加一个物体的函数注册到这个事件中去。</p>
-<p><img src="/posts/ff326c84/Snipaste_2023-03-26_20-39-40.png" alt></p>
+    <title>3DRpg-7-Cinemachine与后处理</title>
+    <url>/posts/e9066b58.html</url>
+    <content><![CDATA[<h1 id="Cinemachine相机跟随"><a href="#Cinemachine相机跟随" class="headerlink" title="Cinemachine相机跟随"></a>Cinemachine相机跟随</h1><p>这里使用的是一个CInemachine这个插件控制我们的相机跟随人物的移动<br>先在PackageManager中安装Cinemachine这个插件<br>然后添加一个virtual camera，在main camera中添加我们的CinemachineVirtualCamera组件<br>最后在其中设置好我们的设置就行<br><img src="/posts/e9066b58/Snipaste_2023-03-28_14-04-23.png" alt><br><img src="/posts/e9066b58/Snipaste_2023-03-28_14-06-09.png" alt><br>Body:<br>3rd Person Follow：持续跟随目标移动</p>
+<p>Farming Transposer：在屏幕空间计算相机和目标的偏移值</p>
+<p>Hard Lock To Target：将相机和目标的位置、朝向进行绑定</p>
+<p>Obital Transposer：根据输入绕目标旋转<br>Aim:<br>Group Composer：跟踪群体中的某个位置</p>
+<p>POV：模拟第一人称相机的视野控制</p>
+<p>Hard Look At：锁定一个目标</p>
+<p>Same As Follow：跟踪一个目标</p>
+<h1 id="后处理"><a href="#后处理" class="headerlink" title="后处理"></a>后处理</h1><p>这里在场景中添加一个Global Volume，是URP会自动添加<br><img src="/posts/e9066b58/Snipaste_2023-03-28_14-11-46.png" alt><br><img src="/posts/e9066b58/Snipaste_2023-03-28_14-12-42.png" alt></p>
 ]]></content>
       <categories>
         <category>游戏开发</category>
@@ -40,52 +46,29 @@
       </tags>
   </entry>
   <entry>
+    <title>3DRpg-5-MouseManager鼠标点击移动方法</title>
+    <url>/posts/ff326c84.html</url>
+    <content><![CDATA[<h1 id="UnityEvent"><a href="#UnityEvent" class="headerlink" title="UnityEvent"></a>UnityEvent</h1><p>使用了UnityEngine.Events这个Unity内置的事件来作为触发<br><figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.Events;</span><br><span class="line"></span><br><span class="line"><span class="comment">//由于这里不是继承MonoBehaviour所以需要序列化后才能在unity中显示</span></span><br><span class="line">[<span class="meta">System.Serializable</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">EventVector3</span>:<span class="title">UnityEvent</span>&lt;<span class="title">Vector3</span>&gt;&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MouseManager</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//保存射线碰撞的信息</span></span><br><span class="line">    RaycastHit hitInfo;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> EventVector3 OnMouseClicked;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span> &#123;</span><br><span class="line">        SetCursorTexture();</span><br><span class="line">        MouseControl();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">SetCursorTexture</span>()</span>&#123;</span><br><span class="line">        Ray ray=Camera.main.ScreenPointToRay(Input.mousePosition);</span><br><span class="line">        <span class="keyword">if</span>(Physics.Raycast(ray,<span class="keyword">out</span> hitInfo))&#123;</span><br><span class="line">            <span class="comment">//切换鼠标贴图</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//点击后传入我们的hitinfo的position（点击的位置）传入Event</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">MouseControl</span>()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(Input.GetMouseButtonDown(<span class="number">0</span>)&amp;&amp;hitInfo.collider!=<span class="literal">null</span>)&#123;</span><br><span class="line">	        <span class="comment">//这里是触碰到的物体的标签是Ground时执行这个事件，也就是说只有摸到地面的时候才执行</span></span><br><span class="line">            <span class="keyword">if</span>(hitInfo.collider.gameObject.CompareTag(<span class="string">&quot;Ground&quot;</span>))&#123;</span><br><span class="line">                OnMouseClicked?.Invoke(hitInfo.point);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这个脚本挂载在场景中的<code>MouseManager</code>中，然后添加一个物体的函数注册到这个事件中去。</p>
+<p><img src="/posts/ff326c84/Snipaste_2023-03-26_20-39-40.png" alt></p>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+        <category>游戏引擎</category>
+        <category>Unity</category>
+        <category>3DRPG</category>
+      </categories>
+      <tags>
+        <tag>学习记录</tag>
+        <tag>unity</tag>
+        <tag>游戏开发</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>3DRpg-6-SetCursor设置鼠标图标和单例模式</title>
     <url>/posts/c05a1912.html</url>
     <content><![CDATA[<p><code>MouseManager.cs</code><br><figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="comment">// using UnityEngine.Events;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//由于这里不是继承MonoBehaviour所以需要序列化后才能在unity中显示</span></span><br><span class="line"><span class="comment">// [System.Serializable]</span></span><br><span class="line"><span class="comment">// public class EventVector3:UnityEvent&lt;Vector3&gt;&#123;&#125;</span></span><br><span class="line"><span class="comment">//起初的拖拽式的添加方式</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MouseManager</span>: <span class="title">MonoBehaviour</span> &#123;</span><br><span class="line">    <span class="comment">//一个简单的单例模式</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> MouseManager Instance;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取图片的变量</span></span><br><span class="line">    <span class="keyword">public</span> Texture2D point, doorway, attack, target, arrow;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//保存射线碰撞的信息</span></span><br><span class="line">    RaycastHit hitInfo;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// public EventVector3 OnMouseClicked;</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">event</span> Action &lt; Vector3 &gt; OnMouseClicked;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Awake</span>()</span> &#123;</span><br><span class="line">        <span class="comment">//单例的一个实现，如果已经存在一个Instance了那么就不用在出现一个MouseManager了，就销毁自身</span></span><br><span class="line">        <span class="keyword">if</span> (Instance != <span class="literal">null</span>) Destroy(gameObject);</span><br><span class="line">        Instance = <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span> &#123;</span><br><span class="line">        SetCursorTexture();</span><br><span class="line">        MouseControl();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">SetCursorTexture</span>()</span> &#123;</span><br><span class="line">            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);</span><br><span class="line">            <span class="keyword">if</span> (Physics.Raycast(ray, <span class="keyword">out</span> hitInfo)) &#123;</span><br><span class="line">                <span class="comment">//切换鼠标贴图</span></span><br><span class="line">                <span class="keyword">switch</span> (hitInfo.collider.gameObject.tag) &#123;</span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&quot;Ground&quot;</span>:</span><br><span class="line">                        <span class="comment">//这里中间的Vector2是一个偏移，因为这张图片是一个圆的狙击镜类似的，所以要让鼠标点保持在这张图片的中间</span></span><br><span class="line">                        Cursor.SetCursor(target, <span class="keyword">new</span> Vector2(<span class="number">16</span>, <span class="number">16</span>), CursorMode.Auto);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="literal">default</span>:</span><br><span class="line">                        Cursor.SetCursor(arrow, <span class="keyword">new</span> Vector2(<span class="number">16</span>, <span class="number">16</span>), CursorMode.Auto);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//点击后传入我们的hitinfo的position（点击的位置）传入Event</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">MouseControl</span>()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (Input.GetMouseButtonDown(<span class="number">0</span>) &amp;&amp; hitInfo.collider != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (hitInfo.collider.gameObject.CompareTag(<span class="string">&quot;Ground&quot;</span>)) &#123;</span><br><span class="line">                OnMouseClicked ? .Invoke(hitInfo.point);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><code>PlayerController.cs</code><br><figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.AI;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PlayerController</span>: <span class="title">MonoBehaviour</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> NavMeshAgent agent;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Awake</span>()</span> &#123;</span><br><span class="line">        agent = GetComponent &lt; NavMeshAgent &gt; ();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>()</span> &#123;</span><br><span class="line">        MouseManager.Instance.OnMouseClicked += MoveToTarget;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">MoveToTarget</span>(<span class="params">Vector3 target</span>)</span> &#123;</span><br><span class="line">        agent.destination = target;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这里添加之前的没写的鼠标图标的切换的功能和切换了使用C#内置的事件来代替之前的Unity内置事件，添加了一个<code>PlayerController</code>来管理玩家</p>
 <p><img src="/posts/c05a1912/Snipaste_2023-03-26_21-26-37.png" alt><br>整理Scripts文件夹，将Manager和Controller分开</p>
 <p><img src="/posts/c05a1912/Snipaste_2023-03-26_21-18-51.png" alt><br>图标可以在麦扣老师的视频底下下载，图标设置成这样，不然可能会报黄色警报，开启<code>Alpha Is Transparency</code>可以将背景设为透明，<code>Format</code>设置成<code>RGB 32</code>，关闭<code>Generate Mip Maps</code>和打开<code>Read/Write</code>，我也不知道为啥要打开最后这个读取或写入，因为报警告所以试着打开后就不报了。</p>
-]]></content>
-      <categories>
-        <category>游戏开发</category>
-        <category>游戏引擎</category>
-        <category>Unity</category>
-        <category>3DRPG</category>
-      </categories>
-      <tags>
-        <tag>学习记录</tag>
-        <tag>unity</tag>
-        <tag>游戏开发</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>3DRpg-7-Cinemachine与后处理</title>
-    <url>/posts/e9066b58.html</url>
-    <content><![CDATA[<h1 id="Cinemachine相机跟随"><a href="#Cinemachine相机跟随" class="headerlink" title="Cinemachine相机跟随"></a>Cinemachine相机跟随</h1><p>这里使用的是一个CInemachine这个插件控制我们的相机跟随人物的移动<br>先在PackageManager中安装Cinemachine这个插件<br>然后添加一个virtual camera，在main camera中添加我们的CinemachineVirtualCamera组件<br>最后在其中设置好我们的设置就行<br><img src="/posts/e9066b58/Snipaste_2023-03-28_14-04-23.png" alt><br><img src="/posts/e9066b58/Snipaste_2023-03-28_14-06-09.png" alt><br>Body:<br>3rd Person Follow：持续跟随目标移动</p>
-<p>Farming Transposer：在屏幕空间计算相机和目标的偏移值</p>
-<p>Hard Lock To Target：将相机和目标的位置、朝向进行绑定</p>
-<p>Obital Transposer：根据输入绕目标旋转<br>Aim:<br>Group Composer：跟踪群体中的某个位置</p>
-<p>POV：模拟第一人称相机的视野控制</p>
-<p>Hard Look At：锁定一个目标</p>
-<p>Same As Follow：跟踪一个目标</p>
-<h1 id="后处理"><a href="#后处理" class="headerlink" title="后处理"></a>后处理</h1><p>这里在场景中添加一个Global Volume，是URP会自动添加<br><img src="/posts/e9066b58/Snipaste_2023-03-28_14-11-46.png" alt><br><img src="/posts/e9066b58/Snipaste_2023-03-28_14-12-42.png" alt></p>
-]]></content>
-      <categories>
-        <category>游戏开发</category>
-        <category>游戏引擎</category>
-        <category>Unity</category>
-        <category>3DRPG</category>
-      </categories>
-      <tags>
-        <tag>学习记录</tag>
-        <tag>unity</tag>
-        <tag>游戏开发</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>3DRpg-8-动画控制器</title>
-    <url>/posts/ea7ee876.html</url>
-    <content><![CDATA[<h1 id="Animator"><a href="#Animator" class="headerlink" title="Animator"></a>Animator</h1><p>设置一个动画使用Animator，先创建一个Animtor Controller，添加到这个控制器中<br><img src="/posts/ea7ee876/Snipaste_2023-03-28_14-32-10.png" alt><br><img src="/posts/ea7ee876/Snipaste_2023-03-28_14-32-48.png" alt><br><img src="/posts/ea7ee876/Snipaste_2023-03-28_14-34-00.png" alt><br><img src="/posts/ea7ee876/GIF%202023-3-28%2014-41-44.gif" alt></p>
 ]]></content>
       <categories>
         <category>游戏开发</category>
@@ -119,6 +102,23 @@
         <tag>游戏开发</tag>
         <tag>ShaderGraph</tag>
         <tag>Shader</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>3DRpg-8-动画控制器</title>
+    <url>/posts/ea7ee876.html</url>
+    <content><![CDATA[<h1 id="Animator"><a href="#Animator" class="headerlink" title="Animator"></a>Animator</h1><p>设置一个动画使用Animator，先创建一个Animtor Controller，添加到这个控制器中<br><img src="/posts/ea7ee876/Snipaste_2023-03-28_14-32-10.png" alt><br><img src="/posts/ea7ee876/Snipaste_2023-03-28_14-32-48.png" alt><br><img src="/posts/ea7ee876/Snipaste_2023-03-28_14-34-00.png" alt><br><img src="/posts/ea7ee876/GIF%202023-3-28%2014-41-44.gif" alt></p>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+        <category>游戏引擎</category>
+        <category>Unity</category>
+        <category>3DRPG</category>
+      </categories>
+      <tags>
+        <tag>学习记录</tag>
+        <tag>unity</tag>
+        <tag>游戏开发</tag>
       </tags>
   </entry>
   <entry>
@@ -173,6 +173,52 @@
       <tags>
         <tag>学习记录</tag>
         <tag>TypeScripts</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Godot中的全局变量</title>
+    <url>/posts/a5dff280.html</url>
+    <content><![CDATA[<p>这里我是使用的是godot中的autoload自动加载功能实现的全局变量，你可以在项目设置中添加一个自动加载的脚本，他会在游戏开始前加载你的脚本到root节点下，类似下图的效果<br><img src="/posts/a5dff280/截屏2024-02-21%2022.18.49.png" alt><br>如何设置看下图<br><img src="/posts/a5dff280/截屏2024-02-21%2022.17.32.png" alt></p>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+        <category>游戏引擎</category>
+        <category>Godot</category>
+      </categories>
+      <tags>
+        <tag>Godot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Godot踩坑记录</title>
+    <url>/posts/4e848fc2.html</url>
+    <content><![CDATA[<h1 id="load-resource-pkg"><a href="#load-resource-pkg" class="headerlink" title="load_resource_pkg()"></a>load_resource_pkg()</h1><p>这个函数可以用来加载zip或者pck的文件到r<code>res://</code>目录中，但是必须要是utf-8编码才行，否则会报错，而且好像是在res中缓存不是真的存在了res中，使用gdextension打开这个文件夹是打不开的，是一个虚拟的，在godot中有专门处理，但是其他地方不行。</p>
+<h1 id="如何显示代码提示godot-tscn中的方法和变量"><a href="#如何显示代码提示godot-tscn中的方法和变量" class="headerlink" title="如何显示代码提示godot tscn中的方法和变量"></a>如何显示代码提示godot tscn中的方法和变量</h1><p>这里可以在<code>instantiate()</code>时将其转换为绑定的脚本<br>如果你使用的是class_name，这个关键词是将脚本作为与一个组件结合起来作为一个新的脚本组件使用，你可以在其他地方直接使用这个脚本组件类型的关键词<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 例子1</span><br><span class="line">class_name test extends Control</span><br><span class="line"># 例子2</span><br><span class="line">var ins := Object.instantiate() as test</span><br></pre></td></tr></table></figure><br>如果你没有要创建一个class_name的需求，你可以在开头导入这个脚本<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const test:=perload(&quot;res://test.gd&quot;)</span><br><span class="line">...</span><br><span class="line">var ins := Object.instantiate() as test</span><br></pre></td></tr></table></figure><br>这两个方法都可以实现在编辑器中的代码提示</p>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+        <category>游戏引擎</category>
+        <category>Godot</category>
+      </categories>
+      <tags>
+        <tag>学习记录</tag>
+        <tag>Godot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Godot通过编辑构建配制自定义导出模版</title>
+    <url>/posts/4e3d4268.html</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在godot4.0后增加了一个自定义导出编辑构建配制的功能，可以帮助我们检测我们在编辑器中使用到的功能，然后构建自己的导出模版用于减小包的体积。<br>详情可见：<a href="https://github.com/godotengine/godot/pull/62996">Implement Feature Build Profiles</a></p>
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><p>编辑器里的项目菜单，选择自定义构建模板，可以配置编译时要禁用的功能。从项目中检测，能检测出绝大部分的已使用节点功能。<br><img src="/posts/4e3d4268/截屏2024-03-21%2010.31.19.png" alt><br>之后在构建时使用如下的参考命令：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">scons p=windows target=release tools=no build_feature_profile=&quot;soso.build&quot;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+        <category>游戏引擎</category>
+        <category>Godot</category>
+      </categories>
+      <tags>
+        <tag>Godot</tag>
+        <tag>编译</tag>
       </tags>
   </entry>
   <entry>
@@ -264,6 +310,22 @@
       </tags>
   </entry>
   <entry>
+    <title>Obsidian同步文章的方法</title>
+    <url>/posts/e99bbc8e.html</url>
+    <content><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>这里介绍一个我正在使用的Obsidian同步文章的一个方法，我使用的是一个大佬开发的插件Remotely Save，这个插件很久没有更新了，不过使用起来还是很可以的，同步的网盘我使用的是一个类似于坚果云支持webdav的国外网盘，因为我使用的是webdav其他的话就是支持OneDirver、DropBox和S3，这里我只介绍webdav的使用。</p>
+<h1 id="准备工具"><a href="#准备工具" class="headerlink" title="准备工具"></a>准备工具</h1><p>Obsidian插件Remotely Save，一个支持webdav的网盘（我使用的是<a href="https://higa.teracloud.jp/">teracloud</a>现在好像改名叫InfiniCLOUD了）</p>
+<h1 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h1><p>我们可以使用Obsidian自带的插件市场下载到这个插件，之后按照上面的要求填入相关的信息，可以看我的下面的图片，大部分直接默认就可以了。<br><img src="/posts/e99bbc8e/Pasted%20image%2020240322170249.png" alt><br>这里我使用的远程服务是webdav，之后在下面填上你的地址，用户名和密码就可以了<br><img src="/posts/e99bbc8e/Pasted%20image%2020240322170444.png" alt><br>在左边有一个手动同步按钮可以进行同步，也可以在设置中的基础设置中选择自动一段时间同步。</p>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>小技巧</tag>
+        <tag>Obsidian</tag>
+        <tag>同步</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Scons的简单使用</title>
     <url>/posts/95acef7c.html</url>
     <content><![CDATA[<h1 id="介绍和简单使用"><a href="#介绍和简单使用" class="headerlink" title="介绍和简单使用"></a>介绍和简单使用</h1><p>Scons是Python中的一个库，可以用于编译Cpp文件，我们需要在pip中安装Scons<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install Scons</span><br></pre></td></tr></table></figure><br>之后我们可以使用Scons命令来编译cpp文件。<br>我们需要在需要编译的文件夹下添加<code>Sconstruct</code>文件，在里面加入py代码，之后就可以启动命令行输入Scons命令来编译cpp<br>例子<br><code>Sconstruct</code><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Programe(<span class="string">&quot;hello&quot;</span>,<span class="string">&quot;main.cpp&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello&quot;</span>)</span><br></pre></td></tr></table></figure><br><code>main.cpp</code><br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	std::cout&lt;&lt;<span class="string">&quot;hello world!&quot;</span>&lt;&lt;std::endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这段简单的例子可以输出一个<code>hello</code>和一个<code>hello world</code> ，这是因为<code>Sconstruct</code>是一个py代码，会运行执行了一个<code>Program</code>编译过<code>main.cpp</code>后会运行<code>print</code>，在控制台会有其他的输出，如果你不想要可以使用 <code>-Q</code> 来忽略。</p>
@@ -278,21 +340,9 @@
       </categories>
       <tags>
         <tag>学习记录</tag>
-        <tag>cpp</tag>
         <tag>编译</tag>
+        <tag>cpp</tag>
         <tag>cpp工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cnpm的安装</title>
-    <url>/posts/9d9d5327.html</url>
-    <content><![CDATA[<p>这是一个小知识，由于npm的安装很慢，有时候还会出现错误，所以用其他的源进行安装，我看网上大部分用的都是淘宝的源，所以我这个也是用的他的源，我自己试过，确实好用，很多由于网络问题的东西都不报错了，能正常安装下载也快</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npmmirror.com</span><br></pre></td></tr></table></figure>
-<p>这样就能用cnpm代替npm使用了。<br>其他方法可以参考<a href="https://npmmirror.com/">淘宝 NPM 镜像 (npmmirror.com)</a></p>
-]]></content>
-      <tags>
-        <tag>小知识</tag>
-        <tag>nodejs</tag>
       </tags>
   </entry>
   <entry>
@@ -321,6 +371,63 @@
       </tags>
   </entry>
   <entry>
+    <title>Volta——nodejs版本管理工具</title>
+    <url>/posts/cee1f07f.html</url>
+    <content><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>这是一个类似于nvm的nodejs版本管理工具</p>
+<h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><ul>
+<li>Speed ⚡</li>
+<li>Seamless, per-project version switching</li>
+<li>Cross-platform support, including Windows and all Unix shells</li>
+<li>Support for multiple package managers</li>
+<li>Stable tool installation—no reinstalling on every Node upgrade!</li>
+<li>Extensibility hooks for site-specific customization<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1>安装非常的方便，可以看他的官网有安装教程，这里我是用的wsl，使用一条命令一键安装<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl https://get.volta.sh | bash</span><br></pre></td></tr></table></figure>
+如果你是macos也可以使用上述命令安装，如果是windows用户则需要安装官网的安装包进行安装<br><a href="https://docs.volta.sh/guide/getting-started">Getting Started | Volta</a><br>之后如果你是linux系统的刷新下环境变量，让volta生效<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>工具</category>
+        <category>nodejs</category>
+      </categories>
+      <tags>
+        <tag>学习记录</tag>
+        <tag>后端</tag>
+        <tag>nodejs</tag>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cnpm的安装</title>
+    <url>/posts/9d9d5327.html</url>
+    <content><![CDATA[<p>这是一个小知识，由于npm的安装很慢，有时候还会出现错误，所以用其他的源进行安装，我看网上大部分用的都是淘宝的源，所以我这个也是用的他的源，我自己试过，确实好用，很多由于网络问题的东西都不报错了，能正常安装下载也快</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npmmirror.com</span><br></pre></td></tr></table></figure>
+<p>这样就能用cnpm代替npm使用了。<br>其他方法可以参考<a href="https://npmmirror.com/">淘宝 NPM 镜像 (npmmirror.com)</a></p>
+]]></content>
+      <tags>
+        <tag>小知识</tag>
+        <tag>nodejs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cpp-httplib的使用</title>
+    <url>/posts/8305d18e.html</url>
+    <content><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>这是一个单头文件的C++11标准编写的跨平台的HTTP/HTTPS库。<br>他是非常简单去设置。只需要include这个<code>httplib.h</code>头文件到你的代码！<br>    NOTE：这个库使用 ‘blocking’socket I/O 。如果你正在寻找 ‘non-blocking’ socket I/O，这个库不是你想要的那个。</p>
+<h1 id="简单例子"><a href="#简单例子" class="headerlink" title="简单例子"></a>简单例子</h1><h2 id="服务端（多线程）"><a href="#服务端（多线程）" class="headerlink" title="服务端（多线程）"></a>服务端（多线程）</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CPPHTTPLIB_OPENSSL_SUPPORT</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;path/to/httplib.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// HTTP</span></span><br><span class="line">httplib::Server svr;</span><br><span class="line"></span><br><span class="line"><span class="comment">// HTTPS</span></span><br><span class="line">httplib::SSLServer svr;</span><br><span class="line"></span><br><span class="line">svr.<span class="built_in">Get</span>(<span class="string">&quot;/hi&quot;</span>, [](<span class="type">const</span> httplib::Request &amp;, httplib::Response &amp;res) &#123;</span><br><span class="line">  res.<span class="built_in">set_content</span>(<span class="string">&quot;Hello World!&quot;</span>, <span class="string">&quot;text/plain&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">svr.<span class="built_in">listen</span>(<span class="string">&quot;0.0.0.0&quot;</span>, <span class="number">8080</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CPPHTTPLIB_OPENSSL_SUPPORT</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;path/to/httplib.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// HTTP</span></span><br><span class="line"><span class="function">httplib::Client <span class="title">cli</span><span class="params">(<span class="string">&quot;http://cpp-httplib-server.yhirose.repl.co&quot;</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// HTTPS</span></span><br><span class="line"><span class="function">httplib::Client <span class="title">cli</span><span class="params">(<span class="string">&quot;https://cpp-httplib-server.yhirose.repl.co&quot;</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> res = cli.<span class="built_in">Get</span>(<span class="string">&quot;/hi&quot;</span>);</span><br><span class="line">res-&gt;status;</span><br><span class="line">res-&gt;body;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>cpp</category>
+      </categories>
+      <tags>
+        <tag>学习记录</tag>
+        <tag>库</tag>
+        <tag>cpp</tag>
+        <tag>cpp工具</tag>
+        <tag>后端</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/posts/4a17b156.html</url>
     <content><![CDATA[<p>欢迎来到<a href="https://hexo.io/">Hexo</a>！这是一个很棒的文章。查看<a href="https://hexo.io/docs/">文档</a>去获取更多的信息。如果你有很多的问题当你使用Hexo，你能找到很多答案在<a href="https://hexo.io/docs/troubleshooting.html">问题解答</a>或你能向我提问在<a href="https://github.com/hexojs/hexo/issues">GitHub</a>。</p>
@@ -338,6 +445,25 @@
         <category>Web</category>
         <category>Hexo</category>
       </categories>
+  </entry>
+  <entry>
+    <title>git配置ssh</title>
+    <url>/posts/c8c56574.html</url>
+    <content><![CDATA[<h1 id="设置Git的user-name和email"><a href="#设置Git的user-name和email" class="headerlink" title="设置Git的user name和email"></a>设置Git的user name和email</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;name&quot;</span>  </span><br><span class="line">git config --global user.email <span class="string">&quot;email&quot;</span></span><br></pre></td></tr></table></figure>
+<h1 id="生成SSH密钥过程"><a href="#生成SSH密钥过程" class="headerlink" title="生成SSH密钥过程"></a>生成SSH密钥过程</h1><ol>
+<li>查看是否已经有了ssh密钥：cd ~/.ssh<br>如果没有密钥则不会有此文件夹，有则备份删除  </li>
+<li>生成密钥：  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;email&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>工具</category>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>学习记录</tag>
+        <tag>git</tag>
+      </tags>
   </entry>
   <entry>
     <title>springMVC配置</title>
@@ -367,6 +493,24 @@
         <tag>学习记录</tag>
         <tag>后端</tag>
         <tag>spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何指定使用macbook显卡</title>
+    <url>/posts/3efd4289.html</url>
+    <content><![CDATA[<h1 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h1><p>使用终端输入以下命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo pmset -b gpuswitch 0</span><br></pre></td></tr></table></figure>
+<p>-c 表示 charger 为电源模式，-b 表示 battery 为电池模式</p>
+<p>0代表核显，1代表独显，2则代表自动选择，不过因为很多程序都为了获取最大的性能，在自动选择上大部分都会倾向于选择独显。</p>
+<p>这里我使用了mc的f3来测试是否变换，结果是变换了。<br><img src="/posts/3efd4289/截屏2024-02-17%2023.22.46.png" alt></p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>macos</category>
+      </categories>
+      <tags>
+        <tag>小技巧</tag>
+        <tag>macos</tag>
       </tags>
   </entry>
   <entry>
@@ -513,6 +657,22 @@
       </tags>
   </entry>
   <entry>
+    <title>通过使用wsl导出功能完成linux子系统的迁移</title>
+    <url>/posts/63d5c49f.html</url>
+    <content><![CDATA[<h1 id="导出Linux子系统"><a href="#导出Linux子系统" class="headerlink" title="导出Linux子系统"></a>导出Linux子系统</h1><p>这里我们先使用命令如下获取到linux子系统的名字和状态，如果状态在运行则需要停止。<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wsl --list --verbose\\获取状态</span><br><span class="line">wsl --shutdown\\停止所有linux子系统</span><br></pre></td></tr></table></figure><br>在之后我们需要使用export命定，这里注意导出的路径要包含导出到的文件，下面命令的<code>LinuxName</code>换成你要转换的Linux子系统的名字，<code>Path</code>改成你要导出的路径（注意此路径包含导出到的文件名）<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wsl --export LinuxName Path</span><br></pre></td></tr></table></figure><br>之后我们就可以注销我们原来的子系统，然后就是导出我们导出的Linux子系统到我们想要放置的位置。下面的命令<code>LinuxName</code>换成你要注销的Linux子系统的名字，这里我们要注销的就是我们刚刚导出的Linux子系统的名字。<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wsl --unregister LinuxName</span><br></pre></td></tr></table></figure></p>
+<h1 id="导入Linux子系统"><a href="#导入Linux子系统" class="headerlink" title="导入Linux子系统"></a>导入Linux子系统</h1><p>在执行完之前的操作后我们就可以将我们导出的Linux子系统文件导入到我们想要放置的位置，执行以下命令，这里<code>LinuxName</code>替换成一个你想要的名字，<code>ImportPath</code>替换成你要导入的位置路径，<code>LinuxExportFilePath</code>替换成你要导入的Linux子系统导出的文件（这里的导出文件就是我们刚刚导出的Linux子系统文件）<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wsl --import LinxName ImportPath LinuxExportFilePath</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>Linux</category>
+        <category>WSL</category>
+      </categories>
+      <tags>
+        <tag>WSL</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>（Draw Calls）unity的优化</title>
     <url>/posts/4ba942f5.html</url>
     <content><![CDATA[<p>资料来自<a href="https://www.bilibili.com/video/BV1Bq4y1M7AM/?spm_id_from=333.999.0.0&amp;vd_source=9f7ac696acfb8c89b81b47441148dcf6">【Unity】学到赚到！几个小动作让帧数立刻提升200倍！Unity性能优化之Draw Calls_哔哩哔哩_bilibili</a></p>
@@ -541,86 +701,6 @@
         <tag>游戏开发</tag>
         <tag>性能优化</tag>
         <tag>Unity</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Volta——nodejs版本管理工具</title>
-    <url>/posts/cee1f07f.html</url>
-    <content><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>这是一个类似于nvm的nodejs版本管理工具</p>
-<h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><ul>
-<li>Speed ⚡</li>
-<li>Seamless, per-project version switching</li>
-<li>Cross-platform support, including Windows and all Unix shells</li>
-<li>Support for multiple package managers</li>
-<li>Stable tool installation—no reinstalling on every Node upgrade!</li>
-<li>Extensibility hooks for site-specific customization<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1>安装非常的方便，可以看他的官网有安装教程，这里我是用的wsl，使用一条命令一键安装<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl https://get.volta.sh | bash</span><br></pre></td></tr></table></figure>
-如果你是macos也可以使用上述命令安装，如果是windows用户则需要安装官网的安装包进行安装<br><a href="https://docs.volta.sh/guide/getting-started">Getting Started | Volta</a><br>之后如果你是linux系统的刷新下环境变量，让volta生效<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>计算机</category>
-        <category>工具</category>
-        <category>nodejs</category>
-      </categories>
-      <tags>
-        <tag>学习记录</tag>
-        <tag>nodejs</tag>
-        <tag>后端</tag>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>git配置ssh</title>
-    <url>/posts/c8c56574.html</url>
-    <content><![CDATA[<h1 id="设置Git的user-name和email"><a href="#设置Git的user-name和email" class="headerlink" title="设置Git的user name和email"></a>设置Git的user name和email</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;name&quot;</span>  </span><br><span class="line">git config --global user.email <span class="string">&quot;email&quot;</span></span><br></pre></td></tr></table></figure>
-<h1 id="生成SSH密钥过程"><a href="#生成SSH密钥过程" class="headerlink" title="生成SSH密钥过程"></a>生成SSH密钥过程</h1><ol>
-<li>查看是否已经有了ssh密钥：cd ~/.ssh<br>如果没有密钥则不会有此文件夹，有则备份删除  </li>
-<li>生成密钥：  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;email&quot;</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-]]></content>
-      <categories>
-        <category>计算机</category>
-        <category>工具</category>
-        <category>Git</category>
-      </categories>
-      <tags>
-        <tag>学习记录</tag>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cpp-httplib的使用</title>
-    <url>/posts/8305d18e.html</url>
-    <content><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>这是一个单头文件的C++11标准编写的跨平台的HTTP/HTTPS库。<br>他是非常简单去设置。只需要include这个<code>httplib.h</code>头文件到你的代码！<br>    NOTE：这个库使用 ‘blocking’socket I/O 。如果你正在寻找 ‘non-blocking’ socket I/O，这个库不是你想要的那个。</p>
-<h1 id="简单例子"><a href="#简单例子" class="headerlink" title="简单例子"></a>简单例子</h1><h2 id="服务端（多线程）"><a href="#服务端（多线程）" class="headerlink" title="服务端（多线程）"></a>服务端（多线程）</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CPPHTTPLIB_OPENSSL_SUPPORT</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;path/to/httplib.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// HTTP</span></span><br><span class="line">httplib::Server svr;</span><br><span class="line"></span><br><span class="line"><span class="comment">// HTTPS</span></span><br><span class="line">httplib::SSLServer svr;</span><br><span class="line"></span><br><span class="line">svr.<span class="built_in">Get</span>(<span class="string">&quot;/hi&quot;</span>, [](<span class="type">const</span> httplib::Request &amp;, httplib::Response &amp;res) &#123;</span><br><span class="line">  res.<span class="built_in">set_content</span>(<span class="string">&quot;Hello World!&quot;</span>, <span class="string">&quot;text/plain&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">svr.<span class="built_in">listen</span>(<span class="string">&quot;0.0.0.0&quot;</span>, <span class="number">8080</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CPPHTTPLIB_OPENSSL_SUPPORT</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;path/to/httplib.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// HTTP</span></span><br><span class="line"><span class="function">httplib::Client <span class="title">cli</span><span class="params">(<span class="string">&quot;http://cpp-httplib-server.yhirose.repl.co&quot;</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// HTTPS</span></span><br><span class="line"><span class="function">httplib::Client <span class="title">cli</span><span class="params">(<span class="string">&quot;https://cpp-httplib-server.yhirose.repl.co&quot;</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> res = cli.<span class="built_in">Get</span>(<span class="string">&quot;/hi&quot;</span>);</span><br><span class="line">res-&gt;status;</span><br><span class="line">res-&gt;body;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>计算机</category>
-        <category>cpp</category>
-      </categories>
-      <tags>
-        <tag>学习记录</tag>
-        <tag>库</tag>
-        <tag>cpp</tag>
-        <tag>cpp工具</tag>
-        <tag>后端</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>通过使用wsl导出功能完成linux子系统的迁移</title>
-    <url>/posts/63d5c49f.html</url>
-    <content><![CDATA[<h1 id="导出Linux子系统"><a href="#导出Linux子系统" class="headerlink" title="导出Linux子系统"></a>导出Linux子系统</h1><p>这里我们先使用命令如下获取到linux子系统的名字和状态，如果状态在运行则需要停止。<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wsl --list --verbose\\获取状态</span><br><span class="line">wsl --shutdown\\停止所有linux子系统</span><br></pre></td></tr></table></figure><br>在之后我们需要使用export命定，这里注意导出的路径要包含导出到的文件，下面命令的<code>LinuxName</code>换成你要转换的Linux子系统的名字，<code>Path</code>改成你要导出的路径（注意此路径包含导出到的文件名）<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wsl --export LinuxName Path</span><br></pre></td></tr></table></figure><br>之后我们就可以注销我们原来的子系统，然后就是导出我们导出的Linux子系统到我们想要放置的位置。下面的命令<code>LinuxName</code>换成你要注销的Linux子系统的名字，这里我们要注销的就是我们刚刚导出的Linux子系统的名字。<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wsl --unregister LinuxName</span><br></pre></td></tr></table></figure></p>
-<h1 id="导入Linux子系统"><a href="#导入Linux子系统" class="headerlink" title="导入Linux子系统"></a>导入Linux子系统</h1><p>在执行完之前的操作后我们就可以将我们导出的Linux子系统文件导入到我们想要放置的位置，执行以下命令，这里<code>LinuxName</code>替换成一个你想要的名字，<code>ImportPath</code>替换成你要导入的位置路径，<code>LinuxExportFilePath</code>替换成你要导入的Linux子系统导出的文件（这里的导出文件就是我们刚刚导出的Linux子系统文件）<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wsl --import LinxName ImportPath LinuxExportFilePath</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <categories>
-        <category>计算机</category>
-        <category>Linux</category>
-        <category>WSL</category>
-      </categories>
-      <tags>
-        <tag>WSL</tag>
-        <tag>Linux</tag>
       </tags>
   </entry>
 </search>
