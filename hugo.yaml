@@ -118,10 +118,10 @@ params:
     #  url: "https://ko-fi.com/adityatelange"
 
   # 文章编辑配置
-  editPost:
-    URL: "https://github.com/YuLan233/hugo-PaperMod/tree/exampleSite/content"  # 编辑文章URL
-    Text: "建议修改"  # 编辑文本
-    appendFilePath: true  # 在编辑链接后追加文件路径
+  # editPost:
+    # URL: "https://github.com/YuLan233/hugo-PaperMod/tree/exampleSite/content"  # 编辑文章URL
+    # Text: "建议修改"  # 编辑文本
+    # appendFilePath: true  # 在编辑链接后追加文件路径
 
   # 标签配置（可选）
   # label:
@@ -151,14 +151,14 @@ params:
   #     hiddenInSingle: true  # 在单页面隐藏
 
   # 搜索功能配置（可选）
-  # fuseOpts:
-  #     isCaseSensitive: false  # 搜索不区分大小写
-  #     shouldSort: true  # 对结果排序
-  #     location: 0  # 位置
-  #     distance: 1000  # 距离
-  #     threshold: 0.4  # 阈值
-  #     minMatchCharLength: 0  # 最小匹配字符长度
-  #     keys: ["title", "permalink", "summary", "content"]  # 搜索键
+  fuseOpts:
+      isCaseSensitive: false  # 搜索不区分大小写
+      shouldSort: true  # 对结果排序
+      location: 0  # 位置
+      distance: 1000  # 距离
+      threshold: 0.4  # 阈值
+      minMatchCharLength: 0  # 最小匹配字符长度
+      keys: ["title", "permalink", "summary", "content"]  # 搜索键
 
 # 标记处理配置
 markup:
@@ -170,7 +170,7 @@ markup:
     # anchorLineNos: true  # 代码行号锚点（可选）
     # codeFences: true  # 代码围栏（可选）
     # guessSyntax: true  # 猜测语法（可选）
-    # lineNos: true  # 显示行号（可选）
+    lineNos: true  # 显示行号（可选）
     # style: monokai  # 代码高亮样式（可选）
 
 # 隐私设置（可选）
