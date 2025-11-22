@@ -1,0 +1,204 @@
+# 站点基础配置
+baseURL: "https://yulan233.github.io/"  # 站点基础URL，使用https协议
+title: "YuLan233的个人博客"  # 站点标题
+theme: ["PaperMod"]  # 使用的主题
+
+# 功能开关配置
+enableInlineShortcodes: true  # 启用内联短代码
+enableRobotsTXT: true  # 启用robots.txt生成
+buildDrafts: false  # 不构建草稿
+buildFuture: false  # 不构建未来日期的文章
+buildExpired: false  # 不构建过期文章
+enableEmoji: true  # 启用表情符号支持
+pygmentsUseClasses: true  # 使用Pygments代码高亮
+mainsections: ["posts", "papermod"]  # 主要内容分区
+
+# 压缩配置
+minify:
+  disableXML: true  # 禁用XML压缩
+  # minifyOutput: true  # 启用输出压缩（可选）
+
+# 分页配置
+pagination:
+  disableAliases: false  # 不禁用别名
+  pagerSize: 5  # 每页显示5篇文章
+
+# 多语言配置
+languages:
+  en:
+    languageName: "English"  # 英语语言名称
+    weight: 1  # 权重（优先级）
+    taxonomies:
+      category: categories  # 分类目录
+      tag: tags  # 标签
+      series: series  # 系列文章
+    menu:
+      main:
+        - name: Archive  # 归档
+          url: archives
+          weight: 5
+        - name: Search  # 搜索
+          url: search/
+          weight: 10
+        - name: Tags  # 标签
+          url: tags/
+          weight: 10
+        - name: WiKi  # WiKi
+          url: https://github.com/adityatelange/hugo-PaperMod/wiki/
+
+# 输出格式配置
+outputs:
+  home:
+    - HTML  # HTML格式
+    - RSS  # RSS订阅
+    - JSON  # JSON格式
+
+# 主题参数配置
+params:
+  env: production  # 环境设置，启用Google Analytics等
+  description: "YuLan233的个人博客 - 一个爱代码的人，分享编程心得和技术感想"  # 站点描述
+  author: "YuLan233"  # 作者名称
+  # author: ["Me", "You"]  # 多作者支持（可选）
+
+  defaultTheme: auto  # 默认主题自动检测
+  # disableThemeToggle: true  # 禁用主题切换（可选）
+  ShowShareButtons: true  # 显示分享按钮
+  ShowReadingTime: true  # 显示阅读时间
+  # disableSpecial1stPost: true  # 禁用首篇文章特殊处理（可选）
+  displayFullLangName: true  # 显示完整语言名称
+  ShowPostNavLinks: true  # 显示文章导航链接
+  ShowBreadCrumbs: true  # 显示面包屑导航
+  ShowCodeCopyButtons: true  # 显示代码复制按钮
+  ShowRssButtonInSectionTermList: true  # 在分类页面显示RSS按钮
+  ShowAllPagesInArchive: true  # 在归档中显示所有页面
+  ShowPageNums: true  # 显示页码
+  ShowToc: true  # 显示目录
+  # comments: false  # 禁用评论（可选）
+  images: ["images/papermod-cover.png"]  # 站点图片
+
+  # 个人资料模式配置
+  profileMode:
+    enabled: false  # 禁用个人资料模式
+    title: "YuLan233"  # 个人资料标题
+    imageUrl: "#"  # 头像URL
+    imageTitle: 我的头像  # 头像标题
+    # imageWidth: 120  # 头像宽度（可选）
+    # imageHeight: 120  # 头像高度（可选）
+    buttons:
+      - name: 文章归档  # 归档按钮
+        url: archives
+      - name: 标签  # 标签按钮
+        url: tags
+
+  # 首页信息配置
+  homeInfoParams:
+    Title: "你好，我是YuLan233 👋"  # 首页标题
+    Content: >
+      欢迎来到我的个人博客！
+      
+      - **关于我**：一个热爱编程的开发者，喜欢探索新技术和分享学习心得
+      
+      - **博客内容**：主要分享编程技巧、开发经验、项目实践和个人思考
+      
+      感谢你的访问，希望我的分享能对你有所帮助！
+
+  # 社交媒体图标配置
+  socialIcons:
+    - name: github  # GitHub图标
+      title: 在GitHub上查看源码
+      url: "https://github.com/YuLan233"
+    #- name: Discord  # Discord图标
+    #  title: 加入Discord社区
+    #  url: "https://discord.gg/ahpmTvhVmp"
+    #- name: X  # X/Twitter图标
+    #  title: 在X/Twitter上关注我
+    #  url: "https://x.com/intent/tweet/?text=Checkout%20Hugo%20PaperMod%20%E2%9C%A8%0AA%20fast,%20clean,%20responsive%20Hugo%20theme.&url=https://github.com/adityatelange/hugo-PaperMod&hashtags=Hugo,PaperMod"
+    #- name: KoFi  # Ko-Fi图标
+    #  title: 请我喝杯咖啡 :)
+    #  url: "https://ko-fi.com/adityatelange"
+
+  # 文章编辑配置
+  editPost:
+    URL: "https://github.com/YuLan233/hugo-PaperMod/tree/exampleSite/content"  # 编辑文章URL
+    Text: "建议修改"  # 编辑文本
+    appendFilePath: true  # 在编辑链接后追加文件路径
+
+  # 标签配置（可选）
+  # label:
+  # iconSVG: '<svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 -960 960 960" fill="currentColor"><path d="M320-240h320v-80H320v80Zm0-160h320v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/></svg>'
+  # text: "首页"
+  # icon: icon.png
+  # iconHeight: 35
+
+  # 分析工具配置（可选）
+  # analytics:
+  #     google:
+  #         SiteVerificationTag: "XYZabc"
+
+  # 资源文件配置
+  assets:
+    disableHLJS: true  # 禁用Highlight.js
+  #     favicon: "<link / abs url>"  # 网站图标（可选）
+  #     favicon16x16: "<link / abs url>"  # 16x16图标（可选）
+  #     favicon32x32: "<link / abs url>"  # 32x32图标（可选）
+  #     apple_touch_icon: "<link / abs url>"  # Apple触摸图标（可选）
+  #     safari_pinned_tab: "<link / abs url>"  # Safari固定标签图标（可选）
+
+  # 封面图片配置（可选）
+  # cover:
+  #     hidden: true  # 在所有地方隐藏封面，但不在结构化数据中隐藏
+  #     hiddenInList: true  # 在列表页面和首页隐藏
+  #     hiddenInSingle: true  # 在单页面隐藏
+
+  # 搜索功能配置（可选）
+  # fuseOpts:
+  #     isCaseSensitive: false  # 搜索不区分大小写
+  #     shouldSort: true  # 对结果排序
+  #     location: 0  # 位置
+  #     distance: 1000  # 距离
+  #     threshold: 0.4  # 阈值
+  #     minMatchCharLength: 0  # 最小匹配字符长度
+  #     keys: ["title", "permalink", "summary", "content"]  # 搜索键
+
+# 标记处理配置
+markup:
+  goldmark:
+    renderer:
+      unsafe: true  # 允许不安全的HTML
+  highlight:
+    noClasses: false  # 使用CSS类进行代码高亮
+    # anchorLineNos: true  # 代码行号锚点（可选）
+    # codeFences: true  # 代码围栏（可选）
+    # guessSyntax: true  # 猜测语法（可选）
+    # lineNos: true  # 显示行号（可选）
+    # style: monokai  # 代码高亮样式（可选）
+
+# 隐私设置（可选）
+# privacy:
+#   vimeo:
+#     disabled: false
+#     simple: true
+
+#   twitter:
+#     disabled: false
+#     enableDNT: true
+#     simple: true
+
+#   instagram:
+#     disabled: false
+#     simple: true
+
+#   youtube:
+#     disabled: false
+#     privacyEnhanced: true
+
+# 服务配置
+services:
+  instagram:
+    disableInlineCSS: true  # 禁用Instagram内联CSS
+  x:
+    disableInlineCSS: true  # 禁用X/Twitter内联CSS
+
+caches:
+  images:
+    dir: :cacheDir/images
