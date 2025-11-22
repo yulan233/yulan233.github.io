@@ -2,16 +2,52 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on YuLan233的个人博客</title>
-    <link>http://localhost:1313/posts/</link>
+    <link>https://yulan233.github.io/posts/</link>
     <description>Recent content in Posts on YuLan233的个人博客</description>
     <image>
       <title>YuLan233的个人博客</title>
-      <url>http://localhost:1313/images/papermod-cover.png</url>
-      <link>http://localhost:1313/images/papermod-cover.png</link>
+      <url>https://yulan233.github.io/images/papermod-cover.png</url>
+      <link>https://yulan233.github.io/images/papermod-cover.png</link>
     </image>
     <generator>Hugo -- 0.152.2</generator>
     <language>en</language>
-    <lastBuildDate></lastBuildDate>
-    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 22 Nov 2025 16:01:23 +0800</lastBuildDate>
+    <atom:link href="https://yulan233.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于 Roblox GUI 悬停效果的实现</title>
+      <link>https://yulan233.github.io/posts/%E5%85%B3%E4%BA%8E-roblox-gui-%E6%82%AC%E5%81%9C%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Sat, 22 Nov 2025 16:01:23 +0800</pubDate>
+      <guid>https://yulan233.github.io/posts/%E5%85%B3%E4%BA%8E-roblox-gui-%E6%82%AC%E5%81%9C%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+      <description>&lt;p&gt;在 Roblox 开发中，实现 GUI 悬停效果时，&lt;code&gt;MouseEnter&lt;/code&gt; 和 &lt;code&gt;MouseLeave&lt;/code&gt; 事件有时会表现得不稳定。本文记录了这些传统方法遇到的问题，并介绍一个更可靠的替代方案：使用 &lt;code&gt;GuiObject&lt;/code&gt; 的 &lt;code&gt;GuiState&lt;/code&gt; 属性。&lt;/p&gt;
+&lt;h4 id=&#34;传统方法及其局限性&#34;&gt;传统方法及其局限性&lt;/h4&gt;
+&lt;p&gt;常用的 &lt;code&gt;MouseEnter&lt;/code&gt; 和 &lt;code&gt;MouseLeave&lt;/code&gt; 事件存在一些已知问题：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;快速移动导致的事件丢失&lt;/strong&gt;：当鼠标快速划过 GUI 元素时，引擎可能无法正确触发 &lt;code&gt;MouseEnter&lt;/code&gt; 或 &lt;code&gt;MouseLeave&lt;/code&gt;，导致效果缺失或闪烁。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;删除元素不会触发Leave&lt;/strong&gt;：当你删除绑定了&lt;code&gt;MouseLeave&lt;/code&gt;的元素的时候不会触发这个事件，会导致很多问题。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;动态 GUI 的处理复杂&lt;/strong&gt;：在鼠标悬停期间，如果 GUI 对象的位置或大小发生变化，事件监听逻辑容易出错。
+另一种尝试是使用 &lt;code&gt;InputBegan&lt;/code&gt; 和 &lt;code&gt;InputEnded&lt;/code&gt; 事件，并检查 &lt;code&gt;UserInputType&lt;/code&gt; 是否为 &lt;code&gt;MouseMovement&lt;/code&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;-- 使用 InputBegan/Ended 的示例（不推荐）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;Object.InputBegan&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Connect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kr&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Input&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;kr&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Input.UserInputType&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Enum.UserInputType&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MouseMovement&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;n&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;Mouse entered&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;kr&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;end&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;Object.InputEnded&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Connect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kr&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Input&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;kr&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Input.UserInputType&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Enum.UserInputType&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MouseMovement&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;n&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;Mouse left&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;kr&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;end&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这种方法检测的是“鼠标在对象上开始/停止移动”，而非真正的“进入/离开”。当鼠标静止在对象上然后直接移出时，&lt;code&gt;InputEnded&lt;/code&gt; 可能不会被触发。它同样会受到子元素的干扰。&lt;/p&gt;
+&lt;h4 id=&#34;使用-guistate-属性&#34;&gt;使用 &lt;code&gt;GuiState&lt;/code&gt; 属性&lt;/h4&gt;
+&lt;p&gt;一个更稳定的方案是监听 &lt;code&gt;GuiObject&lt;/code&gt; 的 &lt;code&gt;GuiState&lt;/code&gt; 属性。&lt;code&gt;GuiState&lt;/code&gt; 是一个枚举，它直接反映了 GUI 对象的当前交互状态。其中两个关键状态是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Enum.GuiState.Hover&lt;/code&gt;：鼠标指针悬停在对象上。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Enum.GuiState.Idle&lt;/code&gt;：鼠标指针不在对象上。
+通过监听 &lt;code&gt;GuiState&lt;/code&gt; 的变化，可以获得一个由引擎底层管理的状态信号，从而避免了上述传统方法的问题。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;结合-tweenservice-的实现示例&#34;&gt;结合 TweenService 的实现示例&lt;/h4&gt;
+&lt;p&gt;以下代码展示了如何结合 &lt;code&gt;TweenService&lt;/code&gt; 和 &lt;code&gt;GuiState&lt;/code&gt; 来实现一个带动画和音效的按钮悬停效果。&lt;/p&gt;</description>
+    </item>
   </channel>
 </rss>
