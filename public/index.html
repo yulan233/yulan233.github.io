@@ -188,6 +188,23 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">在Windows上，让Caps Lock键变成中英文切换键
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>在Windows上，让Caps Lock键变成中英文切换键 用惯了Mac之后，再回到Windows电脑上，总有些小地方让人感觉不太适应。对我来说，其中一个就是键盘上的Caps Lock键。 在macOS上，Caps Lock键默认可以用来快速切换中英文输入法，这个设计非常直观，也减少了手指的移动距离。但在Windows系统里，这个键通常只负责大小写锁定，一个功能对我来说使用频率并不高。于是，我便开始琢磨，能不能在Windows上也实现类似的功能。 经过一番搜索，我发现了一款名为AutoHotkey的免费软件。它功能非常强大，可以通过编写脚本来定制各种键盘快捷键和自动化操作。虽然它的功能很多，但我们只需要用到其中最基础的一点。
+准备工作 首先，你需要从AutoHotkey的官网（https://www.autohotkey.com/）下载并安装它。安装时选择默认选项即可。 安装完成后，我们就可以开始编写脚本了。
+实现Caps Lock切换中英文 网上有很多人和我有同样的需求，所以相关的脚本也并不难找。下面这个脚本就能很好地实现我们的目标，它不仅能让单击Caps Lock切换中英文，还保留了长按切换大小写的功能，可以说是相当完善了。 在使用前，请确保你的Windows系统默认的中英文切换快捷键是Ctrl &#43; Space。如果不是，可以在“设置”-&gt;“时间和语言”-&gt;“语言和区域”-&gt;“输入”-&gt;“高级键盘设置”中进行修改。 脚本内容如下：
+#Requires AutoHotkey v2.0 #SingleInstance Force ; 让脚本在后台持续运行 Persistent global isCapsPressed := false CapsLock:: { if (KeyWait(&#34;CapsLock&#34;, &#34;T0.5&#34;)) { if(!isCapsPressed){ ; 如果是单击，则发送 Ctrl&#43;Space 来切换中英文 Send &#34;^{Space}&#34; } global isCapsPressed := false } else { if(!isCapsPressed){ global isCapsPressed := true ; 如果是长按（超过0.5秒），则切换大小写锁定状态 SetCapsLockState !GetKeyState(&#34;CapsLock&#34;, &#34;T&#34;) } } } 如何使用这个脚本：
+在电脑的任意位置新建一个文本文档。 将上面的代码复制并粘贴到这个文本文档中。 保存文件，然后将文件名从.txt修改为.ahk，例如SwitchIME.ahk。 双击运行这个.ahk文件。 现在，你的Caps Lock键就已经被“改造”了。试着单击一下，应该就能切换输入法了；如果长按不放，则会像原来一样切换大小写锁定。 设置开机自启动 每次开机都手动双击运行脚本会比较麻烦，我们可以把它设置成开机自动启动。 方法很简单：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-12-07 16:06:32 +0800 CST'>December 7, 2025</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>YuLan233</span></footer>
+  <a class="entry-link" aria-label="post link to 在Windows上，让Caps Lock键变成中英文切换键" href="http://localhost:1313/posts/%E5%9C%A8windows%E4%B8%8A%E8%AE%A9caps-lock%E9%94%AE%E5%8F%98%E6%88%90%E4%B8%AD%E8%8B%B1%E6%96%87%E5%88%87%E6%8D%A2%E9%94%AE/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">精灵图堆叠：2D渲染中的伪3D
     </h2>
   </header>
@@ -253,21 +270,12 @@
   <footer class="entry-footer"><span title='2025-11-22 16:40:08 +0800 CST'>November 22, 2025</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>YuLan233</span></footer>
   <a class="entry-link" aria-label="post link to Roblox客户端脚本获取UTC时间的方法" href="http://localhost:1313/posts/roblox%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%84%9A%E6%9C%AC%E8%8E%B7%E5%8F%96utc%E6%97%B6%E9%97%B4%E7%9A%84%E6%96%B9%E6%B3%95/"></a>
 </article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">关于 Roblox GUI 悬停效果的实现
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>在 Roblox 开发中，实现 GUI 悬停效果时，MouseEnter 和 MouseLeave 事件有时会表现得不稳定。本文记录了这些传统方法遇到的问题，并介绍一个更可靠的替代方案：使用 GuiObject 的 GuiState 属性。
-传统方法及其局限性 常用的 MouseEnter 和 MouseLeave 事件存在一些已知问题：
-快速移动导致的事件丢失：当鼠标快速划过 GUI 元素时，引擎可能无法正确触发 MouseEnter 或 MouseLeave，导致效果缺失或闪烁。 删除元素不会触发Leave：当你删除绑定了MouseLeave的元素的时候不会触发这个事件，会导致很多问题。 动态 GUI 的处理复杂：在鼠标悬停期间，如果 GUI 对象的位置或大小发生变化，事件监听逻辑容易出错。 另一种尝试是使用 InputBegan 和 InputEnded 事件，并检查 UserInputType 是否为 MouseMovement。 1 2 3 4 5 6 7 8 9 10 11 -- 使用 InputBegan/Ended 的示例（不推荐） Object.InputBegan:Connect(function(Input) if Input.UserInputType == Enum.UserInputType.MouseMovement then print(&#34;Mouse entered&#34;) end end) Object.InputEnded:Connect(function(Input) if Input.UserInputType == Enum.UserInputType.MouseMovement then print(&#34;Mouse left&#34;) end end) 这种方法检测的是“鼠标在对象上开始/停止移动”，而非真正的“进入/离开”。当鼠标静止在对象上然后直接移出时，InputEnded 可能不会被触发。它同样会受到子元素的干扰。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-11-22 16:01:23 +0800 CST'>November 22, 2025</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>YuLan233</span></footer>
-  <a class="entry-link" aria-label="post link to 关于 Roblox GUI 悬停效果的实现" href="http://localhost:1313/posts/%E5%85%B3%E4%BA%8E-roblox-gui-%E6%82%AC%E5%81%9C%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/"></a>
-</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="http://localhost:1313/page/2/">Next&nbsp;2/2&nbsp;»
+    </a>
+  </nav>
+</footer>
     </main>
     
 <footer class="footer">
