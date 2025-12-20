@@ -14,6 +14,34 @@
     <lastBuildDate>Sun, 07 Dec 2025 16:06:32 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Archlinux</title>
+      <link>http://localhost:1313/tags/archlinux/</link>
+      <pubDate>Sun, 07 Dec 2025 16:06:32 +0800</pubDate>
+      <guid>http://localhost:1313/tags/archlinux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Autohotkey</title>
+      <link>http://localhost:1313/tags/autohotkey/</link>
+      <pubDate>Sun, 07 Dec 2025 16:06:32 +0800</pubDate>
+      <guid>http://localhost:1313/tags/autohotkey/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Keyd</title>
+      <link>http://localhost:1313/tags/keyd/</link>
+      <pubDate>Sun, 07 Dec 2025 16:06:32 +0800</pubDate>
+      <guid>http://localhost:1313/tags/keyd/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Linux</title>
+      <link>http://localhost:1313/tags/linux/</link>
+      <pubDate>Sun, 07 Dec 2025 16:06:32 +0800</pubDate>
+      <guid>http://localhost:1313/tags/linux/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Win</title>
       <link>http://localhost:1313/tags/win/</link>
       <pubDate>Sun, 07 Dec 2025 16:06:32 +0800</pubDate>

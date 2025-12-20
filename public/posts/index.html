@@ -174,19 +174,17 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">在Windows上，让Caps Lock键变成中英文切换键
+    <h2 class="entry-hint-parent">在Win和ArchLinux上，让Caps Lock键变成中英文切换键
     </h2>
   </header>
   <div class="entry-content">
-    <p>在Windows上，让Caps Lock键变成中英文切换键 用惯了Mac之后，再回到Windows电脑上，总有些小地方让人感觉不太适应。对我来说，其中一个就是键盘上的Caps Lock键。 在macOS上，Caps Lock键默认可以用来快速切换中英文输入法，这个设计非常直观，也减少了手指的移动距离。但在Windows系统里，这个键通常只负责大小写锁定，一个功能对我来说使用频率并不高。于是，我便开始琢磨，能不能在Windows上也实现类似的功能。 经过一番搜索，我发现了一款名为AutoHotkey的免费软件。它功能非常强大，可以通过编写脚本来定制各种键盘快捷键和自动化操作。虽然它的功能很多，但我们只需要用到其中最基础的一点。
-准备工作 首先，你需要从AutoHotkey的官网（https://www.autohotkey.com/）下载并安装它。安装时选择默认选项即可。 安装完成后，我们就可以开始编写脚本了。
-实现Caps Lock切换中英文 网上有很多人和我有同样的需求，所以相关的脚本也并不难找。下面这个脚本就能很好地实现我们的目标，它不仅能让单击Caps Lock切换中英文，还保留了长按切换大小写的功能，可以说是相当完善了。 在使用前，请确保你的Windows系统默认的中英文切换快捷键是Ctrl &#43; Space。如果不是，可以在“设置”-&gt;“时间和语言”-&gt;“语言和区域”-&gt;“输入”-&gt;“高级键盘设置”中进行修改。 脚本内容如下：
-#Requires AutoHotkey v2.0 #SingleInstance Force ; 让脚本在后台持续运行 Persistent global isCapsPressed := false CapsLock:: { if (KeyWait(&#34;CapsLock&#34;, &#34;T0.5&#34;)) { if(!isCapsPressed){ ; 如果是单击，则发送 Ctrl&#43;Space 来切换中英文 Send &#34;^{Space}&#34; } global isCapsPressed := false } else { if(!isCapsPressed){ global isCapsPressed := true ; 如果是长按（超过0.5秒），则切换大小写锁定状态 SetCapsLockState !GetKeyState(&#34;CapsLock&#34;, &#34;T&#34;) } } } 如何使用这个脚本：
-在电脑的任意位置新建一个文本文档。 将上面的代码复制并粘贴到这个文本文档中。 保存文件，然后将文件名从.txt修改为.ahk，例如SwitchIME.ahk。 双击运行这个.ahk文件。 现在，你的Caps Lock键就已经被“改造”了。试着单击一下，应该就能切换输入法了；如果长按不放，则会像原来一样切换大小写锁定。 设置开机自启动 每次开机都手动双击运行脚本会比较麻烦，我们可以把它设置成开机自动启动。 方法很简单：
+    <p>在 Windows 和 Arch Linux 上，让 Caps Lock 键变成中英文切换键 用惯了 Mac 之后，再回到 Windows 或 Linux 电脑上，总有些小地方让人感觉不太适应。对我来说，其中一个就是键盘上的 Caps Lock 键。 在 macOS 上，Caps Lock 键默认可以用来快速切换中英文输入法，这个设计非常直观，也减少了手指的移动距离。但在 Windows 和大多数 Linux 发行版里，这个键通常只负责大小写锁定，一个功能对我来说使用频率并不高。于是，我便开始琢磨，能不能在这两大主流操作系统上也实现类似的功能。
+经过一番探索，我找到了解决方案。在 Windows 上，我们可以使用 AutoHotkey；而在 Arch Linux 上，我选择的是Keyd。 Windows 篇：使用 AutoHotkey AutoHotkey 是一款免费且功能强大的自动化脚本软件，可以通过编写脚本来定制各种键盘快捷键。我们只需要用到它最基础的一点功能。 准备工作 首先，你需要从 AutoHotkey 的官网（https://www.autohotkey.com/）下载并安装它。安装时选择默认选项即可。 实现 Caps Lock 切换中英文 这个脚本不仅能让单击 Caps Lock 切换中英文，还保留了长按切换大小写的功能。 在使用前，请确保你的 Windows 系统默认的中英文切换快捷键是 Ctrl &#43; Space。如果不是，可以在“设置”-&gt;“时间和语言”-&gt;“语言和区域”-&gt;“输入”-&gt;“高级键盘设置”中进行修改。 脚本内容如下：
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 #Requires AutoHotkey v2.0 #SingleInstance Force ; 让脚本在后台持续运行 Persistent global isCapsPressed := false CapsLock:: { if (KeyWait(&#34;CapsLock&#34;, &#34;T0.5&#34;)) { if(!isCapsPressed){ ; 如果是单击，则发送 Ctrl&#43;Space 来切换中英文 Send &#34;^{Space}&#34; } global isCapsPressed := false } else { if(!isCapsPressed){ global isCapsPressed := true ; 如果是长按（超过0.5秒），则切换大小写锁定状态 SetCapsLockState !GetKeyState(&#34;CapsLock&#34;, &#34;T&#34;) } } } 如何使用这个脚本：
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-12-07 16:06:32 +0800 CST'>December 7, 2025</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>YuLan233</span></footer>
-  <a class="entry-link" aria-label="post link to 在Windows上，让Caps Lock键变成中英文切换键" href="http://localhost:1313/posts/%E5%9C%A8windows%E4%B8%8A%E8%AE%A9caps-lock%E9%94%AE%E5%8F%98%E6%88%90%E4%B8%AD%E8%8B%B1%E6%96%87%E5%88%87%E6%8D%A2%E9%94%AE/"></a>
+  <footer class="entry-footer"><span title='2025-12-20 16:06:32 +0800 CST'>December 20, 2025</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>YuLan233</span></footer>
+  <a class="entry-link" aria-label="post link to 在Win和ArchLinux上，让Caps Lock键变成中英文切换键" href="http://localhost:1313/posts/%E5%9C%A8win%E5%92%8Carchlinux%E4%B8%8A%E8%AE%A9caps-lock%E9%94%AE%E5%8F%98%E6%88%90%E4%B8%AD%E8%8B%B1%E6%96%87%E5%88%87%E6%8D%A2%E9%94%AE/"></a>
 </article>
 
 <article class="post-entry"> 
