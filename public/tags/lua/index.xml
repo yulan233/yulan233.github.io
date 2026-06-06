@@ -9,15 +9,15 @@
       <url>http://localhost:1313/images/papermod-cover.png</url>
       <link>http://localhost:1313/images/papermod-cover.png</link>
     </image>
-    <generator>Hugo -- 0.152.2</generator>
+    <generator>Hugo -- 0.162.1</generator>
     <language>en</language>
     <lastBuildDate>Sat, 22 Nov 2025 17:22:45 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/lua/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Roblox 游戏开发中使用vscode</title>
-      <link>http://localhost:1313/posts/roblox-%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E4%BD%BF%E7%94%A8vscode/</link>
+      <link>http://localhost:1313/posts/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/roblox/roblox-%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E4%BD%BF%E7%94%A8vscode/</link>
       <pubDate>Sat, 22 Nov 2025 17:22:45 +0800</pubDate>
-      <guid>http://localhost:1313/posts/roblox-%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E4%BD%BF%E7%94%A8vscode/</guid>
+      <guid>http://localhost:1313/posts/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/roblox/roblox-%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E4%BD%BF%E7%94%A8vscode/</guid>
       <description>&lt;p&gt;在 Roblox 游戏开发领域，高效的工具管理与资源整合是提升开发效率的关键。aftman 工作流凭借其强大的工具管理能力，成为开发者的得力助手。它以 aftman 作为工具管理器（&lt;strong&gt;也可以用使用npm，毕竟aftman很久不更新了&lt;/strong&gt;），统筹 wally 和 rojo 两大工具，前者用于管理第三方库，后者负责同步，搭配 vscode 中的 roblox lsp 插件实现语法补全，还可借助 roblox lsp（knit）插件和 selene 进一步优化语法与错误检测。接下来，就为大家详细介绍具体使用方法。&lt;/p&gt;
 &lt;h2 id=&#34;安装-aftman&#34;&gt;安装 aftman&lt;/h2&gt;
 &lt;p&gt;想要开启 aftman 工作流，首先要安装 aftman。前往 GitHub 网站，找到与你系统对应的版本进行下载安装。安装完成后，便可着手创建新项目。在当前文件夹下，通过运行aftman init命令，创建一个新的aftman.toml文件，这是后续管理工具的重要配置文件。
@@ -68,9 +68,9 @@
     </item>
     <item>
       <title>Roblox 任意 Part 区域游泳功能</title>
-      <link>http://localhost:1313/posts/roblox-%E4%BB%BB%E6%84%8F-part-%E5%8C%BA%E5%9F%9F%E6%B8%B8%E6%B3%B3%E5%8A%9F%E8%83%BD/</link>
+      <link>http://localhost:1313/posts/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/roblox/roblox-%E4%BB%BB%E6%84%8F-part-%E5%8C%BA%E5%9F%9F%E6%B8%B8%E6%B3%B3%E5%8A%9F%E8%83%BD/</link>
       <pubDate>Sat, 22 Nov 2025 17:20:08 +0800</pubDate>
-      <guid>http://localhost:1313/posts/roblox-%E4%BB%BB%E6%84%8F-part-%E5%8C%BA%E5%9F%9F%E6%B8%B8%E6%B3%B3%E5%8A%9F%E8%83%BD/</guid>
+      <guid>http://localhost:1313/posts/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/roblox/roblox-%E4%BB%BB%E6%84%8F-part-%E5%8C%BA%E5%9F%9F%E6%B8%B8%E6%B3%B3%E5%8A%9F%E8%83%BD/</guid>
       <description>&lt;h3 id=&#34;核心功能实现&#34;&gt;核心功能实现&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -172,9 +172,9 @@
     </item>
     <item>
       <title>Roblox客户端脚本获取UTC时间的方法</title>
-      <link>http://localhost:1313/posts/roblox%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%84%9A%E6%9C%AC%E8%8E%B7%E5%8F%96utc%E6%97%B6%E9%97%B4%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+      <link>http://localhost:1313/posts/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/roblox/roblox%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%84%9A%E6%9C%AC%E8%8E%B7%E5%8F%96utc%E6%97%B6%E9%97%B4%E7%9A%84%E6%96%B9%E6%B3%95/</link>
       <pubDate>Sat, 22 Nov 2025 16:40:08 +0800</pubDate>
-      <guid>http://localhost:1313/posts/roblox%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%84%9A%E6%9C%AC%E8%8E%B7%E5%8F%96utc%E6%97%B6%E9%97%B4%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+      <guid>http://localhost:1313/posts/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/roblox/roblox%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%84%9A%E6%9C%AC%E8%8E%B7%E5%8F%96utc%E6%97%B6%E9%97%B4%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
       <description>&lt;p&gt;在 Roblox 开发中，我们经常需要获取一个不受玩家本地时区影响的标准时间，即 UTC（协调世界时）。虽然在服务器上可以直接使用 &lt;code&gt;os.time()&lt;/code&gt;，因为它本身就在一个受控的环境中运行，但在客户端，玩家的设备时区各不相同，直接获取本地时间可能会导致数据不一致。
 这里记录一个从客户端获取 UTC 时间的 Lua 脚本函数，并对其原理进行简单说明。&lt;/p&gt;
 &lt;h3 id=&#34;脚本代码&#34;&gt;脚本代码&lt;/h3&gt;
@@ -239,9 +239,9 @@
     </item>
     <item>
       <title>关于 Roblox GUI 悬停效果的实现</title>
-      <link>http://localhost:1313/posts/%E5%85%B3%E4%BA%8E-roblox-gui-%E6%82%AC%E5%81%9C%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+      <link>http://localhost:1313/posts/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/roblox/%E5%85%B3%E4%BA%8E-roblox-gui-%E6%82%AC%E5%81%9C%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
       <pubDate>Sat, 22 Nov 2025 16:01:23 +0800</pubDate>
-      <guid>http://localhost:1313/posts/%E5%85%B3%E4%BA%8E-roblox-gui-%E6%82%AC%E5%81%9C%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+      <guid>http://localhost:1313/posts/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/roblox/%E5%85%B3%E4%BA%8E-roblox-gui-%E6%82%AC%E5%81%9C%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
       <description>&lt;p&gt;在 Roblox 开发中，实现 GUI 悬停效果时，&lt;code&gt;MouseEnter&lt;/code&gt; 和 &lt;code&gt;MouseLeave&lt;/code&gt; 事件有时会表现得不稳定。本文记录了这些传统方法遇到的问题，并介绍一个更可靠的替代方案：使用 &lt;code&gt;GuiObject&lt;/code&gt; 的 &lt;code&gt;GuiState&lt;/code&gt; 属性。&lt;/p&gt;
 &lt;h4 id=&#34;传统方法及其局限性&#34;&gt;传统方法及其局限性&lt;/h4&gt;
 &lt;p&gt;常用的 &lt;code&gt;MouseEnter&lt;/code&gt; 和 &lt;code&gt;MouseLeave&lt;/code&gt; 事件存在一些已知问题：&lt;/p&gt;

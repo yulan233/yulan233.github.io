@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>图 on YuLan233的个人博客</title>
+		<link>http://localhost:1313/tags/%E5%9B%BE/</link>
+		<description>Recent content in 图 on YuLan233的个人博客</description>
+		<generator>Hugo</generator>
+		<language>en</language>
+		
+		
+		
+		
+			<lastBuildDate>Sat, 06 Jun 2026 15:01:23 +0800</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/tags/%E5%9B%BE/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>关于roblox-ts的一些踩坑点</title>
+				<link>http://localhost:1313/posts/%E5%85%B3%E4%BA%8Eroblox-ts%E7%9A%84%E4%B8%80%E4%BA%9B%E8%B8%A9%E5%9D%91%E7%82%B9/</link>
+				<pubDate>Sat, 06 Jun 2026 15:01:23 +0800</pubDate>
+				<guid>http://localhost:1313/posts/%E5%85%B3%E4%BA%8Eroblox-ts%E7%9A%84%E4%B8%80%E4%BA%9B%E8%B8%A9%E5%9D%91%E7%82%B9/</guid>
+				<description>&lt;h2 id=&#34;vs-code-配置问题&#34;&gt;VS Code 配置问题&lt;/h2&gt;&#xA;&lt;p&gt;VS Code 默认使用内置的 TypeScript 版本，而非工作区指定的版本。这会导致一些问题，比如：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;tsconfig.json&lt;/code&gt; 中提示需要添加忽略配置&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;*.ts&lt;/code&gt; 代码中提示某些内置函数/方法不存在&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;虽然 roblox-ts 的 VS Code 插件会自动帮我们设置工作区 TypeScript 版本，但 VS Code 不会自动识别。需要在 &lt;code&gt;.vscode/settings.json&lt;/code&gt; 中添加以下配置，让 VS Code 提示是否切换到工作区版本：&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;&#xA;&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;&#xA;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1&#xA;&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2&#xA;&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3&#xA;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&#xA;&lt;td class=&#34;lntd&#34;&gt;&#xA;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;js/ts.tsdk.promptToUseWorkspaceVersion&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#xA;&lt;/div&gt;&#xA;&lt;/div&gt;&lt;p&gt;添加后，VS Code 右下角会弹出提示，点击确认即可使用项目中的 TypeScript 版本，上述报错即可解决。&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>
